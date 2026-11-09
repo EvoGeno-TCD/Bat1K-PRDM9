@@ -1,11 +1,11 @@
 # PRDM9 evolution in bats
 
-This folder holds a pipeline that finds the gene **PRDM9** in about 160 bat
-genome assemblies (108 species), checks how reliable each copy is, and then
-asks how PRDM9 has evolved across bats.
+Pipeline that finds the gene **PRDM9** in 160 bat
+genome assemblies (108 species), determines how reliable each copy is, and then
+tests how PRDM9 has evolved across bats.
 
 Read sections 1–3 before running anything. They explain what the pipeline does
-and why. Section 4 sets up the software, sections 5–6 cover running it, and
+and why. Section 4 sets up the software, sections 5-6 cover running it, and
 section 7 explains how to read the results.
 
 ---
@@ -152,7 +152,7 @@ copied. So we:
 
 ---
 
-## 4. Software you need
+## 4. Softwares you will need
 
 The easiest route is a conda/mamba environment with the bioconda channel:
 
@@ -196,10 +196,10 @@ check can't look at domains.
 **Steps that skip themselves:** if a recommended tool is missing, step 3 prints
 `SKIP: <reason>` and carries on. Read the end of the log to see what didn't run.
 
-**Disk and network:** step 1 downloads one large annotation file per assembly,
+**Disk and network:** Step 1 downloads one large annotation file per assembly,
 which can be several GB. It needs internet access to `genome.senckenberg.de`.
 The cache is deleted after each assembly, so you only need room for one at a
-time. The erosion test needs whole genomes (~2 GB each).
+time. The erosion test will need whole genomes (~2 GB each).
 
 ---
 
@@ -468,10 +468,10 @@ KRAB / SSXRD / SET present (1/0), number of C2H2 hits, `domain_order`, and
 
 ---
 
-## 9. Known limitations
+## 9. Limitations
 
 - **Technology labels are guessed.** They come from assembly names; 57 are
-  `unknown` until someone checks them.
+  `unknown` until you check them.
 - **Finger detection** uses the classic C2H2 pattern (C-x2-C-x12-H-x3-H, allowing
   slightly different spacing). Degenerate fingers (e.g. a missing histidine) are
   not counted. Only canonical fingers enter the dN/dS and concerted-evolution tests.
@@ -485,45 +485,6 @@ KRAB / SSXRD / SET present (1/0), number of C2H2 hits, `domain_order`, and
   external tools (UCSC tools, miniprot, InterProScan, MAFFT, pal2nal, IQ-TREE,
   HyPhy) and the R script have not been run on real data yet. Check the first
   real run carefully.
-
----
-
-## 10. Glossary
-
-| Term | Meaning |
-|---|---|
-| **Allele** | One version of a gene; diploid animals carry two |
-| **Assembly** | A reconstructed genome sequence; several may exist per species |
-| **C2H2 zinc finger** | ~28-amino-acid unit held together by 2 cysteines + 2 histidines binding zinc; binds ~3 DNA bases |
-| **Codon alignment** | DNA alignment that keeps codons intact, needed for dN/dS |
-| **Concerted evolution** | Repeats within one genome becoming similar to each other through copying (gene conversion / unequal crossing-over) |
-| **Contact residues** | Positions −1, +2, +3, +6 of each finger's helix that touch DNA |
-| **dN/dS (ω)** | Rate of protein-changing vs silent changes. >1 positive selection, ≈1 neutral, <1 constraint |
-| **Haplotype (hap1/hap2)** | Separate assemblies of the two chromosome copies of one animal |
-| **Hotspot** | Short region where recombination is concentrated |
-| **IUPAC code** | Letters for ambiguous bases (N = any, R = A/G, …) |
-| **Long-read / short-read** | Sequencing technologies; long reads resolve repeats much better |
-| **Projection (TOGA)** | A gene's position and structure transferred from a reference genome |
-| **Saturation** | So many changes that more can't be detected; dS > ~1.5 is unreliable |
-| **Synteny** | Conserved order of neighbouring genes |
-| **ZF0** | The lone zinc finger upstream of PRDM9's main array |
-
----
-
-## 11. Key references
-
-- Baker Z. et al. (2017) Repeated losses of PRDM9 directed recombination despite
-  the conservation of PRDM9 across vertebrates. *eLife*.
-- Oliver P.L. et al. (2009) Accelerated evolution of the Prdm9 speciation gene
-  across diverse metazoan taxa. *PLoS Genetics*.
-- Upham N.S., Esselstyn J.A., Jetz W. (2019) Inferring the mammal tree:
-  species-level sets of phylogenies for questions in ecology, evolution, and
-  conservation. *PLoS Biology*.
-- Persikov A.V., Singh M. (2014) De novo prediction of DNA-binding specificities
-  for Cys2His2 zinc finger proteins. *Nucleic Acids Research*.
-- Li H. (2023) Protein-to-genome alignment with miniprot. *Bioinformatics*.
-- Kirilenko B.M. et al. (2023) Integrating gene annotation with orthology
-  inference at scale (TOGA). *Science*. TOGA2: Malovichko et al., in preparation.
 
 ---
 

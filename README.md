@@ -263,7 +263,7 @@ python3 make_assembly_metadata.py toga_species_table.txt bat_assemblies.tsv
 ```
 `toga_species_table.txt` is the TOGA2 species list (the tab-separated table of
 species, assembly, taxonomy ID and lineage). `bat_assemblies.tsv` is already
-provided, so you only need to re-run this if that table changes.
+provided, **so you only need to re-run this if that table changes.**
 
 ### Step 1: extract from TOGA2 (hours; network-bound)
 ```bash

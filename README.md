@@ -255,8 +255,7 @@ that folder.
 
 ## 6. Running the pipeline - step by step
 
-Run each step in order and check its output before moving on. On a shared
-server, run long steps inside `screen` or `tmux`, or as a cluster job.
+Run each step in order and check its output before moving on. 
 
 ### Step 0: assembly metadata (seconds)
 ```bash

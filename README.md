@@ -1,4 +1,4 @@
-# Bat1K-PRDM9# PRDM9 in bats — pipeline
+# PRDM9 in bats — pipeline
 
 ## Run order
 ```bash

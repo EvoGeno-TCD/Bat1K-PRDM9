@@ -219,9 +219,7 @@ that folder.
 
 | File | Format | Used by | How to get it |
 |---|---|---|---|
-| `parse_toga_ifne.py` | Python script | step 1 (`PARSER=` in `run_toga_prdm9.sh`) | The lab's existing TOGA parser. Ask your supervisor; it is not in this folder. It works for any gene despite the name. |
-| `query_prdm9.faa` | Protein FASTA | step 2 (`QUERY=` in `reannotate_prdm9.sh`) | Start with human PRDM9 (UniProt **Q9NQV7**). After a first run, add 1–3 good bat PRDM9 proteins from `prdm9_reannot.faa` (choose long-read assemblies with flag `OK`), then re-run step 2. Bat queries align better than human. |
-| Published dated bat/mammal **species** tree | Newick or NEXUS | step 3.7 (`BIG_TREE=` in `prdm9_downstream.sh`) | E.g. the Upham et al. (2019) mammal trees from VertLife; one summary tree (e.g. the MCC tree) is enough. Tip labels must start with `Genus_species`. This is a tree of the **species**, not of the gene; the pipeline builds the gene trees itself. |
+| Published dated bat/mammal **species** tree | Newick or NEXUS | step 3.7 (`BIG_TREE=` in `prdm9_downstream.sh`) | One summary tree (e.g. the MCC tree) is enough. Tip labels must start with `Genus_species`. This is a tree of the **species**, not of the gene; the pipeline builds the gene trees itself. |
 | `name_map.tsv` (optional) | `Genus species<TAB>exact tree tip label` | step 3.7 (`NAME_MAP=`) | Only for species whose names changed (e.g. *Neoeptesicus*, *Cnephaeus*, *Dermanura*). After the first run, look at `prdm9_analysis/bats.missing.txt` to see which ones need it. |
 | `motifs.tsv` | `short_name<TAB>IUPAC motif` | step 3.8 (`MOTIFS=`) | Run a C2H2 zinc-finger binding predictor (e.g. the Persikov & Singh predictor) on `prdm9_analysis/prdm9.array.faa` and write one motif per species. Use the **short** assembly names (e.g. `myoNatt2A`). |
 | `genomes.tsv` | `short_name<TAB>/path/to/genome.fa(.gz)` | step 3.8 (`GENOMES=`) | See below. |

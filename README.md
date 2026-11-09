@@ -203,7 +203,7 @@ time. The erosion test will need whole genomes (~2 GB each).
 
 ---
 
-## 5. Files you must prepare
+## 5. Files to prepare
 
 Put **all scripts and these files in one folder**, and run everything from
 that folder.
@@ -255,7 +255,7 @@ that folder.
 
 ---
 
-## 6. Running it, step by step
+## 6. Running the pipeline - step by step
 
 Run each step in order and check its output before moving on. On a shared
 server, run long steps inside `screen` or `tmux`, or as a cluster job.

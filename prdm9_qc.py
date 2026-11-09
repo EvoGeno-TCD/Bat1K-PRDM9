@@ -9,10 +9,18 @@ Inputs
   --zf         <prefix>.per_protein.tsv from prdm9_zf_analysis.py      (optional)
   --domains    prdm9.domains.tsv from prdm9_downstream.sh              (optional)
   --reannot    prdm9_reannot.report.tsv from reannotate_prdm9.py       (optional)
+  --cleandir   prdm9_toga_clean/ (parser output with inactivating_mutations) (optional)
+  --zf-exon    reference exon number holding the ZF array; default 'auto' =
+               the most common exon (block) count among Intact projections,
+               i.e. the last coding exon. Printed to stderr - check it.
 
 Outputs (prefix -o)
-  .status_by_assembly.tsv  every TOGA status seen per assembly, incl. absent
-  .status_by_species.tsv   best status per species, split by assembly tech
+  .status_by_assembly.tsv  every TOGA status seen per assembly, incl. absent,
+                           plus the mutation evidence of its best projection
+  .status_by_species.tsv   best status per species, split by assembly tech,
+                           with loss evidence and an interpretation
+  .mutations.tsv           every projection: inactivating mutations split
+                           into ZF exon vs other exons
   .synteny.tsv             flanking genes per locus and a synteny score
   .master.tsv              one row per protein: ZF/domains/reannot flags/meta/gate
   .haplotypes.tsv          per individual: hap1 vs hap2 (allelic) and version
@@ -43,6 +51,65 @@ def status_rank(s):
     return STATUS_RANK.index(s) if s in STATUS_RANK else len(STATUS_RANK)
 
 
+MUT_RE = re.compile(r"^(?P<id>[^:]*):(?P<type>[^:]*):exon(?P<exon>[^:]*):pos(?P<pos>[^:]*):"
+                    r"(?P<change>.*?):inactivating=(?P<inact>[^:]*):note=(?P<note>.*)$")
+# evidence classes, most to least severe
+EVIDENCE = ["outside_zf_exon", "deleted_exons", "missing_exons_only",
+            "zf_exon_only", "non_inactivating_only", "none", "no_data"]
+EVIDENCE_NOTE = {
+    "outside_zf_exon": "inactivating mutation(s) outside the ZF exon: strongest loss evidence",
+    "deleted_exons": "exon(s) deleted outside the ZF exon: loss evidence, check alignment chains",
+    "missing_exons_only": "only missing exons (often assembly gaps/chain breaks): weak evidence",
+    "zf_exon_only": "mutations only in the ZF exon: often a projection artefact - check reannotation",
+    "non_inactivating_only": "no inactivating mutations",
+    "none": "no mutations reported",
+    "no_data": "no parsed projection data",
+    "absent": "no PRDM9 projection in TOGA: search the genome directly "
+              "(miniprot/tblastn with a bat PRDM9) before calling a loss",
+}
+
+
+def is_true(x):
+    return x.strip().lower() in ("true", "yes", "1", "+", "t", "y")
+
+
+def parse_mutations(field, zf_exon):
+    """-> dict summary of one projection's inactivating_mutations string."""
+    muts = []
+    for m in filter(None, (x.strip() for x in (field or "").split(";"))):
+        mm = MUT_RE.match(m)
+        if mm:
+            muts.append(mm.groupdict())
+    inact = [m for m in muts if is_true(m["inact"])]
+    def in_zf(m):
+        return zf_exon is not None and m["exon"].strip() == str(zf_exon)
+    zf = [m for m in inact if in_zf(m)]
+    out = [m for m in inact if not in_zf(m)]
+    def kind(m):
+        t = (m["type"] + " " + m["change"]).lower()
+        if "missing" in t and "exon" in t:
+            return "missing"
+        if "deleted" in t or ("del" in t and "exon" in t and "fs" not in t):
+            return "deleted"
+        return "other"
+    if not muts:
+        ev = "none"
+    elif not inact:
+        ev = "non_inactivating_only"
+    elif any(kind(m) == "other" for m in out):
+        ev = "outside_zf_exon"
+    elif any(kind(m) == "deleted" for m in out):
+        ev = "deleted_exons"
+    elif out:
+        ev = "missing_exons_only"
+    else:
+        ev = "zf_exon_only"
+    return dict(n_mut=len(muts), n_inact=len(inact), n_zf=len(zf), n_out=len(out),
+                exons_out=",".join(sorted({m["exon"] for m in out}, key=lambda x: (len(x), x))),
+                types_out=",".join(sorted({m["type"] for m in out})),
+                types_zf=",".join(sorted({m["type"] for m in zf})), evidence=ev)
+
+
 def version_of(short):
     m = re.search(r"(\d+)[AB]?$", short)
     return int(m.group(1)) if m else 0
@@ -57,6 +124,8 @@ def main():
     ap.add_argument("--zf")
     ap.add_argument("--domains")
     ap.add_argument("--reannot")
+    ap.add_argument("--cleandir")
+    ap.add_argument("--zf-exon", default="auto")
     ap.add_argument("--n-flank-genes", type=int, default=5)
     ap.add_argument("-o", "--out", default="prdm9_qc")
     a = ap.parse_args()
@@ -65,7 +134,7 @@ def main():
     meta = {r["short"]: r for r in read_tsv(a.meta)}
 
     # ---------------- 1. status, including losses / absence -----------------
-    by_asm = {}
+    by_asm, blocks_intact = {}, Counter()
     for short in meta:
         bed = os.path.join(a.rawdir, f"{short}.PRDM9.bed")
         if os.path.exists(os.path.join(a.rawdir, f"{short}.none")):
@@ -74,37 +143,98 @@ def main():
             c = Counter()
             for line in open(bed):
                 f = line.rstrip("\n").split("\t")
-                c[f[sc].strip() if len(f) > sc else "NA"] += 1
+                st = f[sc].strip() if len(f) > sc else "NA"
+                c[st] += 1
+                if st.lower() == "intact" and len(f) > 9 and f[9].isdigit():
+                    blocks_intact[int(f[9])] += 1
             by_asm[short] = c
         else:
             by_asm[short] = Counter({"not_processed": 1})
-    with open(a.out + ".status_by_assembly.tsv", "w") as fh:
-        fh.write("short\tspecies\tfamily\ttech\tbest_status\tall_statuses\n")
-        for s, c in by_asm.items():
-            best = min(c, key=status_rank)
-            m = meta[s]
-            fh.write(f"{s}\t{m['species']}\t{m['family']}\t{m['tech']}\t{best}\t"
-                     + ";".join(f"{k}:{v}" for k, v in c.most_common()) + "\n")
 
-    sp_best = defaultdict(dict)
-    for s, c in by_asm.items():
-        m = meta[s]
+    # ---------------- 1b. inactivating mutations (parser output) -------------
+    if a.zf_exon == "auto":
+        zf_exon = blocks_intact.most_common(1)[0][0] if blocks_intact else None
+        print(f"ZF exon (auto, most common exon count of Intact projections): {zf_exon} "
+              f"[counts: {dict(blocks_intact.most_common(5))}] - override with --zf-exon",
+              file=sys.stderr)
+    else:
+        zf_exon = int(a.zf_exon)
+    if zf_exon is None and a.cleandir:
+        print("WARNING: ZF exon unknown (no Intact projections with an exon count); every "
+              "inactivating mutation will count as 'outside ZF exon'. Set --zf-exon.",
+              file=sys.stderr)
+    csv.field_size_limit(sys.maxsize)
+    best_proj = {}            # short -> mutation summary of best projection
+    if a.cleandir:
+        with open(a.out + ".mutations.tsv", "w") as mf:
+            mf.write("short\tspecies\tname\tstatus\tn_mutations\tn_inactivating\t"
+                     "n_inact_zf_exon\tn_inact_other_exons\tother_exons_hit\t"
+                     "types_other_exons\ttypes_zf_exon\tevidence\n")
+            for short in meta:
+                path = os.path.join(a.cleandir, f"{short}.PRDM9.clean.tsv")
+                if not os.path.exists(path):
+                    continue
+                cands = []
+                with open(path) as fh:
+                    for r in csv.DictReader(fh, delimiter="\t"):
+                        ms = parse_mutations(r.get("inactivating_mutations", ""), zf_exon)
+                        st = r.get("status", "NA")
+                        cands.append((status_rank(st), EVIDENCE.index(ms["evidence"]) * -1,
+                                      ms["n_inact"], st, r.get("name", "NA"), ms))
+                        mf.write(f"{short}\t{meta[short]['species']}\t{r.get('name','NA')}\t{st}\t"
+                                 f"{ms['n_mut']}\t{ms['n_inact']}\t{ms['n_zf']}\t{ms['n_out']}\t"
+                                 f"{ms['exons_out'] or '-'}\t{ms['types_out'] or '-'}\t"
+                                 f"{ms['types_zf'] or '-'}\t{ms['evidence']}\n")
+                if cands:
+                    # best = best status, then the least severe evidence, then fewest mutations
+                    best = min(cands, key=lambda x: (x[0], x[1], x[2]))
+                    best_proj[short] = dict(best[5], status=best[3], name=best[4])
+
+    def evidence_of(short):
+        if short in best_proj:
+            return best_proj[short]["evidence"]
+        return "no_data" if not by_asm[short].get("absent_from_TOGA") else "absent"
+
+    with open(a.out + ".status_by_assembly.tsv", "w") as fh:
+        fh.write("short\tspecies\tfamily\ttech\tbest_status\tall_statuses\t"
+                 "best_projection_evidence\tother_exons_hit\ttypes_other_exons\ttypes_zf_exon\n")
+        for s_, c in by_asm.items():
+            best = min(c, key=status_rank)
+            m = meta[s_]
+            bp = best_proj.get(s_, {})
+            fh.write(f"{s_}\t{m['species']}\t{m['family']}\t{m['tech']}\t{best}\t"
+                     + ";".join(f"{k}:{v}" for k, v in c.most_common())
+                     + f"\t{evidence_of(s_)}\t{bp.get('exons_out') or '-'}\t"
+                     f"{bp.get('types_out') or '-'}\t{bp.get('types_zf') or '-'}\n")
+
+    sp_best = defaultdict(dict)       # species -> grp -> (status, short)
+    for s_, c in by_asm.items():
+        m = meta[s_]
         grp = "long" if m["tech"].startswith("long") else "other"
         best = min(c, key=status_rank)
         prev = sp_best[m["species"]].get(grp)
-        if prev is None or status_rank(best) < status_rank(prev):
-            sp_best[m["species"]][grp] = best
+        ev = evidence_of(s_)
+        evr = EVIDENCE.index(ev) if ev in EVIDENCE else len(EVIDENCE)
+        # prefer better status; at equal status prefer the LEAST severe evidence
+        key = (status_rank(best), -evr)
+        if prev is None or key < prev[0]:
+            sp_best[m["species"]][grp] = (key, best, s_, ev)
     with open(a.out + ".status_by_species.tsv", "w") as fh:
-        fh.write("species\tfamily\tbest_status_longread\tbest_status_other\tbest_overall\tnote\n")
+        fh.write("species\tfamily\tbest_status_longread\tbest_status_other\tbest_overall\t"
+                 "evidence_assembly\tloss_evidence\tinterpretation\tnote\n")
         fam = {m["species"]: m["family"] for m in meta.values()}
         for sp, d in sorted(sp_best.items(), key=lambda x: (fam[x[0]], x[0])):
-            allb = min(d.values(), key=status_rank)
-            note = ""
-            if "long" in d and "other" in d and status_rank(d["other"]) < status_rank(d["long"]):
-                note = "short-read better than long-read: check"
+            pick = d.get("long") or d.get("other")        # evidence from long-read if any
+            allb = min((v[1] for v in d.values()), key=status_rank)
+            note = []
+            if "long" in d and "other" in d and status_rank(d["other"][1]) < status_rank(d["long"][1]):
+                note.append("short-read better than long-read: check")
             if status_rank(allb) > 1:
-                note = (note + "; " if note else "") + "candidate loss/truncation"
-            fh.write(f"{sp}\t{fam[sp]}\t{d.get('long','NA')}\t{d.get('other','NA')}\t{allb}\t{note}\n")
+                note.append("candidate loss/truncation")
+            ev = pick[3]
+            fh.write(f"{sp}\t{fam[sp]}\t{d['long'][1] if 'long' in d else 'NA'}\t"
+                     f"{d['other'][1] if 'other' in d else 'NA'}\t{allb}\t{pick[2]}\t{ev}\t"
+                     f"{EVIDENCE_NOTE.get(ev, ev)}\t{'; '.join(note)}\n")
 
     # ---------------- 2. synteny ---------------------------------------------
     loci = {}   # (short, locus) -> dict(left=[...], right=[...])

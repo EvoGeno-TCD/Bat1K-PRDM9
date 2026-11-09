@@ -10,6 +10,8 @@ set -euo pipefail
 
 META="bat_assemblies.tsv"
 RAWDIR="./prdm9_toga_raw"
+CLEANDIR="./prdm9_toga_clean"        # parser output (inactivating_mutations)
+ZF_EXON="auto"                       # reference exon number of the ZF exon, or auto
 REANNOT="./prdm9_reannot"            # .faa .fna .report.tsv from reannotate_prdm9.sh
 STATUS_COL=23                        # check: bigBedInfo -as <url>
 BIG_TREE=""                          # published dated tree (Newick/NEXUS), e.g. Upham 2019 MCC
@@ -41,6 +43,7 @@ python3 prdm9_zf_analysis.py "$FAA" --cds "$FNA" -o "$W/prdm9"
 
 # 3. QC: status/losses, synteny, gate, haplotypes, representatives -------------
 python3 prdm9_qc.py --meta "$META" --rawdir "$RAWDIR" --status-col "$STATUS_COL" \
+    --cleandir "$CLEANDIR" --zf-exon "$ZF_EXON" \
     --zf "$W/prdm9.per_protein.tsv" "${DOM_ARG[@]}" \
     --reannot "${REANNOT}.report.tsv" -o "$W/qc"
 REPS="$W/qc.representatives.tsv"

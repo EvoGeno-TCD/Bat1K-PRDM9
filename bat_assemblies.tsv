@@ -1,0 +1,164 @@
+short	assembly	species	common	family	accession	asm_name	tech	haplotype	individual	url
+rhyNas2A	HLrhyNas2A	Rhynchonycteris naso	Proboscis bat	Emballonuridae	GCA_037038545.1	mRhyNas2.hap1	long_read_phased	hap1	mRhyNas2	http://genome.senckenberg.de/data/HLrhyNas2A/HLTOGA2integratedv1.bb
+rhyNas2B	HLrhyNas2B	Rhynchonycteris naso	Proboscis bat	Emballonuridae	GCA_037038555.1	mRhyNas2.hap2	long_read_phased	hap2	mRhyNas2	http://genome.senckenberg.de/data/HLrhyNas2B/HLTOGA2integratedv1.bb
+sacBil1	HLsacBil1	Saccopteryx bilineata	greater sac-winged bat	Emballonuridae	GCF_036850765.1	NA	unknown	primary	sacBil1	http://genome.senckenberg.de/data/HLsacBil1/HLTOGA2integratedv1.bb
+sacLep1	HLsacLep1	Saccopteryx leptura	lesser sac-winged bat	Emballonuridae	GCF_036850995.1	NA	unknown	primary	sacLep1	http://genome.senckenberg.de/data/HLsacLep1/HLTOGA2integratedv1.bb
+minNat1	HLminNat1	Miniopterus natalensis	Natal long-fingered bat	Miniopteridae	GCA_001595765.1	Mnat.v1	unknown	primary	minNat1	http://genome.senckenberg.de/data/HLminNat1/HLTOGA2integratedv1.bb
+minSch1	HLminSch1	Miniopterus schreibersii	Schreibers long-fingered bat	Miniopteridae	GCA_004026525.1	MinSch_v1_BIUU	short_read	primary	minSch1	http://genome.senckenberg.de/data/HLminSch1/HLTOGA2integratedv1.bb
+minSch2A	HLminSch2A	Miniopterus schreibersii	Schreibers long-fingered bat	Miniopteridae	GCA_964146895.1	mMinSch1.hap1.1	long_read_phased	hap1	mMinSch1	http://genome.senckenberg.de/data/HLminSch2A/HLTOGA2integratedv1.bb
+minSch2B	HLminSch2B	Miniopterus schreibersii	Schreibers long-fingered bat	Miniopteridae	GCA_964145185.1	mMinSch1.hap2.1	long_read_phased	hap2	mMinSch1	http://genome.senckenberg.de/data/HLminSch2B/HLTOGA2integratedv1.bb
+minSchr3A	HLminSchr3A	Miniopterus schreibersii	Schreibers long-fingered bat	Miniopteridae	GCA_964146895.2	mMinSch1.hap1.2	long_read_phased	hap1	mMinSch1	http://genome.senckenberg.de/data/HLminSchr3A/HLTOGA2integratedv1.bb
+minSchr3B	HLminSchr3B	Miniopterus schreibersii	Schreibers long-fingered bat	Miniopteridae	GCA_964145185.2	mMinSch1.hap2.2	long_read_phased	hap2	mMinSch1	http://genome.senckenberg.de/data/HLminSchr3B/HLTOGA2integratedv1.bb
+molAlv1	HLmolAlv1	Molossus alvarezi	Alvarezs mastiff bat	Molossidae	GCA_031001765.1	BBF_mMolAlv_v1	long_read	primary	mMolAlv	http://genome.senckenberg.de/data/HLmolAlv1/HLTOGA2integratedv1.bb
+molAlv2A	HLmolAlv2A	Molossus alvarezi	Alvarezs mastiff bat	Molossidae	GCA_037157525.1	mMolAlv2.hap1	long_read_phased	hap1	mMolAlv2	http://genome.senckenberg.de/data/HLmolAlv2A/HLTOGA2integratedv1.bb
+molAlv2B	HLmolAlv2B	Molossus alvarezi	Alvarezs mastiff bat	Molossidae	GCA_037176705.1	mMolAlv2.hap2	long_read_phased	hap2	mMolAlv2	http://genome.senckenberg.de/data/HLmolAlv2B/HLTOGA2integratedv1.bb
+molMol2	HLmolMol2	Molossus molossus	Pallass mastiff bat	Molossidae	GCA_014108415.1	NA	long_read	primary	molMol2	http://genome.senckenberg.de/data/HLmolMol2/HLTOGA2integratedv1.bb
+molNig1	HLmolNig1	Molossus nigricans	northern black mastiff bat	Molossidae	GCA_026936385.1	BBF_mMolNig1_v1	long_read	primary	mMolNig1	http://genome.senckenberg.de/data/HLmolNig1/HLTOGA2integratedv1.bb
+molNig2A	HLmolNig2A	Molossus nigricans	Northern black mastiff bat	Molossidae	GCA_039880945.1	mMolNig1.hap1	long_read_phased	hap1	mMolNig1	http://genome.senckenberg.de/data/HLmolNig2A/HLTOGA2integratedv1.bb
+molNig2B	HLmolNig2B	Molossus nigricans	Northern black mastiff bat	Molossidae	GCA_039880925.1	mMolNig1.hap2	long_read_phased	hap2	mMolNig1	http://genome.senckenberg.de/data/HLmolNig2B/HLTOGA2integratedv1.bb
+mopCon1	HLmopCon1	Mops condylurus	Angolan free-tailed bat	Molossidae	GCA_043748645.1	NA	unknown	primary	mopCon1	http://genome.senckenberg.de/data/HLmopCon1/HLTOGA2integratedv1.bb
+tadBra3	HLtadBra3	Tadarida brasiliensis	Brazilian free-tailed bat	Molossidae	GCA_030848825.1	DD_mTadBra1_pri	long_read	primary	mTadBra1	http://genome.senckenberg.de/data/HLtadBra3/HLTOGA2integratedv1.bb
+tadTeni1A	HLtadTeni1A	Tadarida teniotis	European free-tailed bat	Molossidae	GCA_976988885.1	mTadTen1.hap1.1	long_read_phased	hap1	mTadTen1	http://genome.senckenberg.de/data/HLtadTeni1A/HLTOGA2integratedv1.bb
+morBla1	HLmorBla1	Mormoops blainvillei	Antillean ghost-faced bat	Mormoopidae	GCA_004026545.1	MorMeg_v1_BIUU	short_read	primary	morBla1	http://genome.senckenberg.de/data/HLmorBla1/HLTOGA2integratedv1.bb
+pteMes1	HLpteMes1	Pteronotus mesoamericanus	Mesoamerican mustached bat	Mormoopidae	GCA_021234165.1	NA	unknown	primary	pteMes1	http://genome.senckenberg.de/data/HLpteMes1/HLTOGA2integratedv1.bb
+ptePar2	HLptePar2	Pteronotus parnellii	Parnells mustached bat	Mormoopidae	Dryad https://doi.org/10.5061/dryad.0k6djh9z1	NA	unknown	primary	ptePar2	http://genome.senckenberg.de/data/HLptePar2/HLTOGA2integratedv1.bb
+pteParMex3	HLpteParMex3	Pteronotus parnellii mexicanus	Parnells mustached bat	Mormoopidae	GCA_036768555.1	ASM3676855v1	unknown	primary	pteParMex3	http://genome.senckenberg.de/data/HLpteParMex3/HLTOGA2integratedv1.bb
+nocLep1	HLnocLep1	Noctilio leporinus	greater bulldog bat	Noctilionidae	GCA_004026585.1	NocLep_v1_BIUU	short_read	primary	nocLep1	http://genome.senckenberg.de/data/HLnocLep1/HLTOGA2integratedv1.bb
+carPer2	HLcarPer2	Carollia perspicillata	Sebas short-tailed bat	Phyllostomidae	GCA_056371365.1	NA	unknown	primary	carPer2	http://genome.senckenberg.de/data/HLcarPer2/HLTOGA2integratedv1.bb
+carPer3	HLcarPer3	Carollia perspicillata	Sebas short-tailed bat	Phyllostomidae	GCA_004027735.1	CarPer_v1_BIUU	short_read	primary	carPer3	http://genome.senckenberg.de/data/HLcarPer3/HLTOGA2integratedv1.bb
+desRot15A	HLdesRot15A	Desmodus rotundus	common vampire bat	Phyllostomidae	TBG Hillerlab	NA	unknown	letterA	desRot15	http://genome.senckenberg.de/data/HLdesRot15A/HLTOGA2integratedv1.bb
+desRot15B	HLdesRot15B	Desmodus rotundus	common vampire bat	Phyllostomidae	TBG Hillerlab	NA	unknown	letterB	desRot15	http://genome.senckenberg.de/data/HLdesRot15B/HLTOGA2integratedv1.bb
+anoCau1	HLanoCau1	Anoura caudifer	tailed tailless bat	Phyllostomidae	GCA_004027475.1	AnoCau_v1_BIUU	short_read	primary	anoCau1	http://genome.senckenberg.de/data/HLanoCau1/HLTOGA2integratedv1.bb
+lepYer1	HLlepYer1	Leptonycteris yerbabuenae	Lesser long-nosed bat	Phyllostomidae	GIGADB	NA	unknown	primary	lepYer1	http://genome.senckenberg.de/data/HLlepYer1/HLTOGA2integratedv1.bb
+garKeen1A	HLgarKeen1A	Gardnerycteris keenani	Keenans Hairy-nosed Bat	Phyllostomidae	GCA_050655435.1	mGarKee1.hap1	long_read_phased	hap1	mGarKee1	http://genome.senckenberg.de/data/HLgarKeen1A/HLTOGA2integratedv1.bb
+garKeen1B	HLgarKeen1B	Gardnerycteris keenani	Keenans Hairy-nosed Bat	Phyllostomidae	GCA_050655445.1	mGarKee1.hap2	long_read_phased	hap2	mGarKee1	http://genome.senckenberg.de/data/HLgarKeen1B/HLTOGA2integratedv1.bb
+lopEvot1A	HLlopEvot1A	Lophostoma evote	Davis round-eared bat	Phyllostomidae	GCA_051307075.1	mLopEvo1.hap1	long_read_phased	hap1	mLopEvo1	http://genome.senckenberg.de/data/HLlopEvot1A/HLTOGA2integratedv1.bb
+lopEvot1B	HLlopEvot1B	Lophostoma evote	Davis round-eared bat	Phyllostomidae	GCA_051307065.1	mLopEvo1.hap2	long_read_phased	hap2	mLopEvo1	http://genome.senckenberg.de/data/HLlopEvot1B/HLTOGA2integratedv1.bb
+macCal1	HLmacCal1	Macrotus californicus	California big-eared bat	Phyllostomidae	GCA_007922815.1	MacCal_v1_BIUU	short_read	primary	macCal1	http://genome.senckenberg.de/data/HLmacCal1/HLTOGA2integratedv1.bb
+micHir1	HLmicHir1	Micronycteris hirsuta	hairy big-eared bat	Phyllostomidae	GCA_004026765.1	MicHir_v1_BIUU	short_read	primary	micHir1	http://genome.senckenberg.de/data/HLmicHir1/HLTOGA2integratedv1.bb
+micMicr1A	HLmicMicr1A	Micronycteris microtis	Common big-eared bat	Phyllostomidae	GCA_051107205.1	mMicMic1.hap1	long_read_phased	hap1	mMicMic1	http://genome.senckenberg.de/data/HLmicMicr1A/HLTOGA2integratedv1.bb
+micMicr1B	HLmicMicr1B	Micronycteris microtis	Common big-eared bat	Phyllostomidae	GCA_051107335.1	mMicMic1.hap2	long_read_phased	hap2	mMicMic1	http://genome.senckenberg.de/data/HLmicMicr1B/HLTOGA2integratedv1.bb
+phyDis3	HLphyDis3	Phyllostomus discolor	pale spear-nosed bat	Phyllostomidae	GCA_014049915.1	NA	long_read	primary	phyDis3	http://genome.senckenberg.de/data/HLphyDis3/HLTOGA2integratedv1.bb
+phyDisc4	HLphyDisc4	Phyllostomus discolor	Pale spear-nosed bat	Phyllostomidae	GCF_004126475.2	mPhyDis1.pri.v3	long_read	primary	mPhyDis1	http://genome.senckenberg.de/data/HLphyDisc4/HLTOGA2integratedv1.bb
+phyHast2	HLphyHast2	Phyllostomus hastatus	Greater spear-nosed bat	Phyllostomidae	GCF_019186645.2	TTU_PhHast_1.1	unknown	primary	phyHast2	http://genome.senckenberg.de/data/HLphyHast2/HLTOGA2integratedv1.bb
+tonSau1	HLtonSau1	Tonatia bakeri	stripe-headed round-eared bat	Phyllostomidae	GCA_004024845.1	TonSau_v1_BIUU	short_read	primary	tonSau1	http://genome.senckenberg.de/data/HLtonSau1/HLTOGA2integratedv1.bb
+traCir2	HLtraCir2	Trachops cirrhosus	fringe-lipped bat	Phyllostomidae	GCA_028533065.1	NA	unknown	primary	traCir2	http://genome.senckenberg.de/data/HLtraCir2/HLTOGA2integratedv1.bb
+artJam2	HLartJam2	Artibeus jamaicensis	Jamaican fruit-eating bat	Phyllostomidae	GCA_014825515.1	WHU_Ajam_v2	unknown	primary	artJam2	http://genome.senckenberg.de/data/HLartJam2/HLTOGA2integratedv1.bb
+artJam3	HLartJam3	Artibeus jamaicensis	Jamaican fruit-eating bat	Phyllostomidae	GCA_021234435.1	NA	unknown	primary	artJam3	http://genome.senckenberg.de/data/HLartJam3/HLTOGA2integratedv1.bb
+artLit1A	HLartLit1A	Artibeus lituratus	Great fruit-eating bat	Phyllostomidae	GCA_038363095.2	mArtLit.hap1	long_read_phased	hap1	mArtLit	http://genome.senckenberg.de/data/HLartLit1A/HLTOGA2integratedv1.bb
+artLit1B	HLartLit1B	Artibeus lituratus	Great fruit-eating bat	Phyllostomidae	GCA_038363175.2	mArtLit1.hap2	long_read_phased	hap2	mArtLit1	http://genome.senckenberg.de/data/HLartLit1B/HLTOGA2integratedv1.bb
+artLitu2A	HLartLitu2A	Artibeus lituratus	Great fruit-eating bat	Phyllostomidae	GCA_038363095.4	mArtLit1.hap1	long_read_phased	hap1	mArtLit1	http://genome.senckenberg.de/data/HLartLitu2A/HLTOGA2integratedv1.bb
+artLitu2B	HLartLitu2B	Artibeus lituratus	Great fruit-eating bat	Phyllostomidae	GCA_038363175.3	mArtLit1.hap2	long_read_phased	hap2	mArtLit1	http://genome.senckenberg.de/data/HLartLitu2B/HLTOGA2integratedv1.bb
+derPhae1A	HLderPhae1A	Dermanura phaeotis	Dwarf fruit-eating bat	Phyllostomidae	GCA_051107565.1	mDerPha1.hap1	long_read_phased	hap1	mDerPha1	http://genome.senckenberg.de/data/HLderPhae1A/HLTOGA2integratedv1.bb
+derPhae1B	HLderPhae1B	Dermanura phaeotis	Dwarf fruit-eating bat	Phyllostomidae	GCA_051107595.1	mDerPha1.hap2	long_read_phased	hap2	mDerPha1	http://genome.senckenberg.de/data/HLderPhae1B/HLTOGA2integratedv1.bb
+plaHell1A	HLplaHell1A	Platyrrhinus helleri	Hellers broad-nosed bat	Phyllostomidae	GCA_051107505.1	mPlaHel1.hap1	long_read_phased	hap1	mPlaHel1	http://genome.senckenberg.de/data/HLplaHell1A/HLTOGA2integratedv1.bb
+plaHell1B	HLplaHell1B	Platyrrhinus helleri	Hellers broad-nosed bat	Phyllostomidae	GCA_051107545.1	mPlaHel1.hap2	long_read_phased	hap2	mPlaHel1	http://genome.senckenberg.de/data/HLplaHell1B/HLTOGA2integratedv1.bb
+stuHon1	HLstuHon1	Sturnira hondurensis	Honduras yellow-shouldered bat	Phyllostomidae	GCA_014824575.1	WHU_Shon_v2	unknown	primary	stuHon1	http://genome.senckenberg.de/data/HLstuHon1/HLTOGA2integratedv1.bb
+stuParv1A	HLstuParv1A	Sturnira parvidens	Northern Yellow-shouldered Bat	Phyllostomidae	GCA_054855685.1	mStuPar1.hap1	long_read_phased	hap1	mStuPar1	http://genome.senckenberg.de/data/HLstuParv1A/HLTOGA2integratedv1.bb
+stuParv1B	HLstuParv1B	Sturnira parvidens	Northern Yellow-shouldered Bat	Phyllostomidae	GCA_054855695.1	mStuPar1.hap2	long_read_phased	hap2	mStuPar1	http://genome.senckenberg.de/data/HLstuParv1B/HLTOGA2integratedv1.bb
+antPal2	HLantPal2	Antrozous pallidus	pallid bat	Vespertilionidae	GCA_027563665.1	NA	unknown	primary	antPal2	http://genome.senckenberg.de/data/HLantPal2/HLTOGA2integratedv1.bb
+eptNil3	HLeptNil3	Cnephaeus nilssonii	Northern bat	Vespertilionidae	GCA_951640355.1	NA	unknown	primary	eptNil3	http://genome.senckenberg.de/data/HLeptNil3/HLTOGA2integratedv1.bb
+corRaf1	HLcorRaf1	Corynorhinus rafinesquii	Rafinesques big-eared bat	Vespertilionidae	DNA Zoo Consortium	NA	short_read_HiC	primary	corRaf1	http://genome.senckenberg.de/data/HLcorRaf1/HLTOGA2integratedv1.bb
+corTow1A	HLcorTow1A	Corynorhinus townsendii	Townsends big-eared bat	Vespertilionidae	GCA_026230055.1	mCorTow1.0.hap1	long_read_phased	hap1	mCorTow1	http://genome.senckenberg.de/data/HLcorTow1A/HLTOGA2integratedv1.bb
+corTow1B	HLcorTow1B	Corynorhinus townsendii	Townsends big-eared bat	Vespertilionidae	GCA_026230045.1	mCorTow1.0.hap2	long_read_phased	hap2	mCorTow1	http://genome.senckenberg.de/data/HLcorTow1B/HLTOGA2integratedv1.bb
+eptFus3	HLeptFus3	Eptesicus fuscus	big brown bat	Vespertilionidae	GCF_027574615.1	DD_ASM_mEF_20220401	unknown	primary	eptFus3	http://genome.senckenberg.de/data/HLeptFus3/HLTOGA2integratedv1.bb
+iaxIox1	HLiaxIox1	Ia io	Great evening bat	Vespertilionidae	GCA_025583905.1	NENU_Iio_1.0	unknown	primary	iaxIox1	http://genome.senckenberg.de/data/HLiaxIox1/HLTOGA2integratedv1.bb
+iaxIox2A	HLiaxIox2A	Ia io	Great evening bat	Vespertilionidae	GCA_054824925.1	mIaxIox2.hap1	long_read_phased	hap1	mIaxIox2	http://genome.senckenberg.de/data/HLiaxIox2A/HLTOGA2integratedv1.bb
+aeoCin1	HLaeoCin1	Lasiurus cinereus	hoary bat	Vespertilionidae	GCA_011751065.1	L.cinereus_Cryan_1219_p1.0	unknown	primary	aeoCin1	http://genome.senckenberg.de/data/HLaeoCin1/HLTOGA2integratedv1.bb
+lasBor1	HLlasBor1	Lasiurus borealis	red bat	Vespertilionidae	GCA_004026805.1	LasBor_v1_BIUU	short_read	primary	lasBor1	http://genome.senckenberg.de/data/HLlasBor1/HLTOGA2integratedv1.bb
+murAurFea1	HLmurAurFea1	Murina feae	Little tube-nosed bat	Vespertilionidae	GCA_004026665.1	MurFea_v1_BIUU	short_read	primary	murAurFea1	http://genome.senckenberg.de/data/HLmurAurFea1/HLTOGA2integratedv1.bb
+myoDau2	HLmyoDau2	Myotis daubentonii	Daubentons bat	Vespertilionidae	GCF_963259705.1	mMyoDau2.1	long_read	primary	mMyoDau2	http://genome.senckenberg.de/data/HLmyoDau2/HLTOGA2integratedv1.bb
+myoDaub3A	HLmyoDaub3A	Myotis daubentonii	Daubentons bat	Vespertilionidae	GCA_963259705.2	mMyoDau2.hap1.2	long_read_phased	hap1	mMyoDau2	http://genome.senckenberg.de/data/HLmyoDaub3A/HLTOGA2integratedv1.bb
+myoEma1A	HLmyoEma1A	Myotis emarginatus	Geoffroys bat	Vespertilionidae	GCA_965115925.1	mMyoEma1.hap1.1	long_read_phased	hap1	mMyoEma1	http://genome.senckenberg.de/data/HLmyoEma1A/HLTOGA2integratedv1.bb
+myoEma1B	HLmyoEma1B	Myotis emarginatus	Geoffroys bat	Vespertilionidae	GCA_965115945.1	mMyoEma1.hap2.1	long_read_phased	hap2	mMyoEma1	http://genome.senckenberg.de/data/HLmyoEma1B/HLTOGA2integratedv1.bb
+myoEmar2A	HLmyoEmar2A	Myotis emarginatus	Geoffroys bat	Vespertilionidae	GCA_965115925.2	mMyoEma1.hap1.2	long_read_phased	hap1	mMyoEma1	http://genome.senckenberg.de/data/HLmyoEmar2A/HLTOGA2integratedv1.bb
+myoFin1	HLmyoFin1	Myotis findleyi	Findleys myotis	Vespertilionidae	GCA_038630795.1	ASM3863079v1	unknown	primary	myoFin1	http://genome.senckenberg.de/data/HLmyoFin1/HLTOGA2integratedv1.bb
+myoLuc1	HLmyoLuc1	Myotis lucifugus	little brown bat	Vespertilionidae	DNA Zoo Consortium	NA	short_read_HiC	primary	myoLuc1	http://genome.senckenberg.de/data/HLmyoLuc1/HLTOGA2integratedv1.bb
+myoMyo6	HLmyoMyo6	Myotis myotis	greater mouse-eared bat	Vespertilionidae	GCA_014108235.1	NA	long_read	primary	myoMyo6	http://genome.senckenberg.de/data/HLmyoMyo6/HLTOGA2integratedv1.bb
+myoMys2A	HLmyoMys2A	Myotis mystacinus	Whiskered bat	Vespertilionidae	GCA_964094495.2	mMyoMys1.hap1.1	long_read_phased	hap1	mMyoMys1	http://genome.senckenberg.de/data/HLmyoMys2A/HLTOGA2integratedv1.bb
+myoMys2B	HLmyoMys2B	Myotis mystacinus	Whiskered bat	Vespertilionidae	GCA_964195625.1	mMyoMys1.hap2.1	long_read_phased	hap2	mMyoMys1	http://genome.senckenberg.de/data/HLmyoMys2B/HLTOGA2integratedv1.bb
+myoMyst3A	HLmyoMyst3A	Myotis mystacinus	Whiskered bat	Vespertilionidae	GCA_964094495.3	mMyoMys1.hap1.2	long_read_phased	hap1	mMyoMys1	http://genome.senckenberg.de/data/HLmyoMyst3A/HLTOGA2integratedv1.bb
+myoNat1A	HLmyoNat1A	Myotis nattereri	Natterers bat	Vespertilionidae	GCA_964212035.1	mMyoNat1.hap1.1	long_read_phased	hap1	mMyoNat1	http://genome.senckenberg.de/data/HLmyoNat1A/HLTOGA2integratedv1.bb
+myoNat1B	HLmyoNat1B	Myotis nattereri	Natterers bat	Vespertilionidae	GCA_964212025.1	mMyoNat1.hap2.1	long_read_phased	hap2	mMyoNat1	http://genome.senckenberg.de/data/HLmyoNat1B/HLTOGA2integratedv1.bb
+myoNatt2A	HLmyoNatt2A	Myotis nattereri	Natterers bat	Vespertilionidae	GCA_964212035.2	mMyoNat1.hap1.2	long_read_phased	hap1	mMyoNat1	http://genome.senckenberg.de/data/HLmyoNatt2A/HLTOGA2integratedv1.bb
+myoNatt2B	HLmyoNatt2B	Myotis nattereri	Natterers bat	Vespertilionidae	GCA_964212025.2	mMyoNat1.hap2.2	long_read_phased	hap2	mMyoNat1	http://genome.senckenberg.de/data/HLmyoNatt2B/HLTOGA2integratedv1.bb
+myoNeso1A	HLmyoNeso1A	Myotis nesopolus	Cucacao Myotis	Vespertilionidae	GCA_054855985.1	mMyoNes1.hap1	long_read_phased	hap1	mMyoNes1	http://genome.senckenberg.de/data/HLmyoNeso1A/HLTOGA2integratedv1.bb
+myoPla1	HLmyoPla1	Myotis planiceps	flat-headed Myotis	Vespertilionidae	GCA_036250175.1	ASM3625017v1	unknown	primary	myoPla1	http://genome.senckenberg.de/data/HLmyoPla1/HLTOGA2integratedv1.bb
+myoRic2	HLmyoRic2	Myotis pilosus	Ricketts big-footed Myotis	Vespertilionidae	GCA_036010255.1	ASM3601025v1	unknown	primary	myoRic2	http://genome.senckenberg.de/data/HLmyoRic2/HLTOGA2integratedv1.bb
+myoSep1	HLmyoSep1	Myotis septentrionalis	Northern long-eared myotis	Vespertilionidae	DNA Zoo Consortium	NA	short_read_HiC	primary	myoSep1	http://genome.senckenberg.de/data/HLmyoSep1/HLTOGA2integratedv1.bb
+myoViv1	HLmyoViv1	Myotis vivesi	fish-eating bat	Vespertilionidae	GCA_035771395.1	ASM3577139v1	unknown	primary	myoViv1	http://genome.senckenberg.de/data/HLmyoViv1/HLTOGA2integratedv1.bb
+myoYum1A	HLmyoYum1A	Myotis yumanensis	Yuma myotis	Vespertilionidae	GCA_028536395.1	mMyoYum1.0.hap2	long_read_phased	hap2	mMyoYum1	http://genome.senckenberg.de/data/HLmyoYum1A/HLTOGA2integratedv1.bb
+myoYum1B	HLmyoYum1B	Myotis yumanensis	Yuma myotis	Vespertilionidae	GCA_028538775.1	mMyoYum1.0.hap1	long_read_phased	hap1	mMyoYum1	http://genome.senckenberg.de/data/HLmyoYum1B/HLTOGA2integratedv1.bb
+myoBra1	myoBra1	Myotis brandtii	Brandts myotis bat	Vespertilionidae	GCF_000412655.1	ASM41265v1	short_read	primary	myoBra1	http://genome.senckenberg.de/data/myoBra1/HLTOGA2integratedv1.bb
+myoDav1	myoDav1	Myotis davidii	Davids myotis bat	Vespertilionidae	GCF_000327345.1	ASM32734v1	short_read	primary	myoDav1	http://genome.senckenberg.de/data/myoDav1/HLTOGA2integratedv1.bb
+neoChir1A	HLneoChir1A	Neoeptesicus chiriquinus	Chiriquinan serotine	Vespertilionidae	GCA_054100705.1	mEptChi1.hap1	long_read_phased	hap1	mEptChi1	http://genome.senckenberg.de/data/HLneoChir1A/HLTOGA2integratedv1.bb
+neoChir1B	HLneoChir1B	Neoeptesicus chiriquinus	Chiriquinan serotine	Vespertilionidae	GCA_054099605.1	mEptChi1.hap2	long_read_phased	hap2	mEptChi1	http://genome.senckenberg.de/data/HLneoChir1B/HLTOGA2integratedv1.bb
+neoFuri1A	HLneoFuri1A	Neoeptesicus furinalis	Argentine brown bat	Vespertilionidae	GCA_054644455.1	mEptFur1.hap1	long_read_phased	hap1	mEptFur1	http://genome.senckenberg.de/data/HLneoFuri1A/HLTOGA2integratedv1.bb
+nycAvi1	HLnycAvi1	Nyctalus aviator	birdlike noctule	Vespertilionidae	GCA_036971965.1	NENU_Navi_1.0	unknown	primary	nycAvi1	http://genome.senckenberg.de/data/HLnycAvi1/HLTOGA2integratedv1.bb
+nycLei1A	HLnycLei1A	Nyctalus leisleri	Lesser noctule	Vespertilionidae	GCA_964264875.1	mNycLei1.hap1.1	long_read_phased	hap1	mNycLei1	http://genome.senckenberg.de/data/HLnycLei1A/HLTOGA2integratedv1.bb
+nycLei1B	HLnycLei1B	Nyctalus leisleri	Lesser noctule	Vespertilionidae	GCA_964264895.1	mNycLei1.hap2.1	long_read_phased	hap2	mNycLei1	http://genome.senckenberg.de/data/HLnycLei1B/HLTOGA2integratedv1.bb
+nycLeis2A	HLnycLeis2A	Nyctalus leisleri	Lesser noctule	Vespertilionidae	GCA_964264875.2	mNycLei1.hap1.2	long_read_phased	hap1	mNycLei1	http://genome.senckenberg.de/data/HLnycLeis2A/HLTOGA2integratedv1.bb
+nycLeis2B	HLnycLeis2B	Nyctalus leisleri	Lesser noctule	Vespertilionidae	GCA_964264895.2	mNycLei1.hap2.2	long_read_phased	hap2	mNycLei1	http://genome.senckenberg.de/data/HLnycLeis2B/HLTOGA2integratedv1.bb
+nycHum2	HLnycHum2	Nycticeius humeralis	evening bat	Vespertilionidae	GCA_007922795.1	NycHum_v1_BIUU	short_read	primary	nycHum2	http://genome.senckenberg.de/data/HLnycHum2/HLTOGA2integratedv1.bb
+pipAbr1	HLpipAbr1	Pipistrellus abramus	Japanese house bat	Vespertilionidae	GCA_044885105.1	ASM4488510v1	unknown	primary	pipAbr1	http://genome.senckenberg.de/data/HLpipAbr1/HLTOGA2integratedv1.bb
+pipHan1	HLpipHan1	Pipistrellus hanaki	Hanakis dwarf bat	Vespertilionidae	GCA_964339955.1	mPipHan1.1	long_read	primary	mPipHan1	http://genome.senckenberg.de/data/HLpipHan1/HLTOGA2integratedv1.bb
+pipKuh2	HLpipKuh2	Pipistrellus kuhlii	Kuhls pipistrelle	Vespertilionidae	GCA_014108245.1	NA	long_read	primary	pipKuh2	http://genome.senckenberg.de/data/HLpipKuh2/HLTOGA2integratedv1.bb
+pipNat1A	HLpipNat1A	Pipistrellus nathusii	Nathusiuss pipistrelle	Vespertilionidae	GCA_963693515.1	NA	unknown	letterA	pipNat1	http://genome.senckenberg.de/data/HLpipNat1A/HLTOGA2integratedv1.bb
+pipNat1B	HLpipNat1B	Pipistrellus nathusii	Nathusiuss pipistrelle	Vespertilionidae	GCA_963693525.1	NA	unknown	letterB	pipNat1	http://genome.senckenberg.de/data/HLpipNat1B/HLTOGA2integratedv1.bb
+pipNath2A	HLpipNath2A	Pipistrellus nathusii	Nathusiuss pipistrelle	Vespertilionidae	GCA_964656225.2	mPipNat1.hap1.2	long_read_phased	hap1	mPipNat1	http://genome.senckenberg.de/data/HLpipNath2A/HLTOGA2integratedv1.bb
+pipPip1	HLpipPip1	Pipistrellus pipistrellus	common pipistrelle	Vespertilionidae	GCA_004026625.1	PipPip_v1_BIUU	short_read	primary	pipPip1	http://genome.senckenberg.de/data/HLpipPip1/HLTOGA2integratedv1.bb
+pipPip2	HLpipPip2	Pipistrellus pipistrellus	common pipistrelle	Vespertilionidae	GCA_903992545.1	mPipPip1.1	long_read	primary	mPipPip1	http://genome.senckenberg.de/data/HLpipPip2/HLTOGA2integratedv1.bb
+pipPipi3A	HLpipPipi3A	Pipistrellus pipistrellus	Common pipistrelle	Vespertilionidae	GCA_965203405.2	mPipPip2.hap1.2	long_read_phased	hap1	mPipPip2	http://genome.senckenberg.de/data/HLpipPipi3A/HLTOGA2integratedv1.bb
+pipPipi3B	HLpipPipi3B	Pipistrellus pipistrellus	Common pipistrelle	Vespertilionidae	GCA_965204225.2	mPipPip2.hap2.2	long_read_phased	hap2	mPipPip2	http://genome.senckenberg.de/data/HLpipPipi3B/HLTOGA2integratedv1.bb
+pipPyg1	HLpipPyg1	Pipistrellus pygmaeus	soprano pipistrelle	Vespertilionidae	GCA_949987585.1	mPipPyg2.1	long_read	primary	mPipPyg2	http://genome.senckenberg.de/data/HLpipPyg1/HLTOGA2integratedv1.bb
+pleAur1	HLpleAur1	Plecotus auritus	brown big-eared bat	Vespertilionidae	GCA_963455305.1	mPleAur1.1	long_read	primary	mPleAur1	http://genome.senckenberg.de/data/HLpleAur1/HLTOGA2integratedv1.bb
+pleAur2	HLpleAur2	Plecotus auritus	brown big-eared bat	Vespertilionidae	Sciencedb https://doi.org/10.57760/sciencedb.11285	NA	unknown	primary	pleAur2	http://genome.senckenberg.de/data/HLpleAur2/HLTOGA2integratedv1.bb
+tylRobu1	HLtylRobu1	Tylonycteris robustula	Greater bamboo bat	Vespertilionidae	GCA_055860955.1	ASM5586095v1	unknown	primary	tylRobu1	http://genome.senckenberg.de/data/HLtylRobu1/HLTOGA2integratedv1.bb
+vesMur1	HLvesMur1	Vespertilio murinus	particolored bat	Vespertilionidae	GCA_963924515.1	mVesMur1.1	long_read	primary	mVesMur1	http://genome.senckenberg.de/data/HLvesMur1/HLTOGA2integratedv1.bb
+vesMuri2A	HLvesMuri2A	Vespertilio murinus	Particolored bat	Vespertilionidae	GCA_963924515.2	mVesMur1.hap1.2	long_read_phased	hap1	mVesMur1	http://genome.senckenberg.de/data/HLvesMuri2A/HLTOGA2integratedv1.bb
+vesMuri2B	HLvesMuri2B	Vespertilio murinus	Particolored bat	Vespertilionidae	GCA_963924695.2	mVesMur1.hap2.2	long_read_phased	hap2	mVesMur1	http://genome.senckenberg.de/data/HLvesMuri2B/HLTOGA2integratedv1.bb
+cynBra1	HLcynBra1	Cynopterus brachyotis	lesser short-nosed fruit bat	Pteropodidae	GCA_009793145.1	ASM979314v1	unknown	primary	cynBra1	http://genome.senckenberg.de/data/HLcynBra1/HLTOGA2integratedv1.bb
+cynSph1	HLcynSph1	Cynopterus sphinx	Indian short-nosed fruit bat	Pteropodidae	GCA_030015415.1	ASM3001541v1	unknown	primary	cynSph1	http://genome.senckenberg.de/data/HLcynSph1/HLTOGA2integratedv1.bb
+macSob1	HLmacSob1	Macroglossus sobrinus	Long-tongued fruit bat	Pteropodidae	GCA_004027375.1	MacSob_v1_BIUU	short_read	primary	macSob1	http://genome.senckenberg.de/data/HLmacSob1/HLTOGA2integratedv1.bb
+eidDup1	HLeidDup1	Eidolon dupreanum	Malagasy straw-colored fruit bat	Pteropodidae	GCA_028627145.1	NA	unknown	primary	eidDup1	http://genome.senckenberg.de/data/HLeidDup1/HLTOGA2integratedv1.bb
+eidHel2	HLeidHel2	Eidolon helvum	straw-colored fruit bat	Pteropodidae	DNA Zoo Consortium	NA	short_read_HiC	primary	eidHel2	http://genome.senckenberg.de/data/HLeidHel2/HLTOGA2integratedv1.bb
+pteGig1	HLpteGig1	Pteropus medius	Indian flying fox	Pteropodidae	GCA_902729225.1	Ma_sr-lr_union100	unknown	primary	pteGig1	http://genome.senckenberg.de/data/HLpteGig1/HLTOGA2integratedv1.bb
+ptePse1	HLptePse1	Pteropus pselaphon	Bonin flying fox	Pteropodidae	GCA_014363405.1	P_pselaphon_scaffold_01	unknown	primary	ptePse1	http://genome.senckenberg.de/data/HLptePse1/HLTOGA2integratedv1.bb
+pteRod1	HLpteRod1	Pteropus rodricensis	Rodriguez flying fox	Pteropodidae	DNA Zoo Consortium	NA	short_read_HiC	primary	pteRod1	http://genome.senckenberg.de/data/HLpteRod1/HLTOGA2integratedv1.bb
+pteRuf1	HLpteRuf1	Pteropus rufus	Malagasy flying fox	Pteropodidae	GCA_028533765.1	NA	unknown	primary	pteRuf1	http://genome.senckenberg.de/data/HLpteRuf1/HLTOGA2integratedv1.bb
+pteRufu2A	HLpteRufu2A	Pteropus rufus	Malagasy flying fox	Pteropodidae	GCA_056363885.1	mPteRuf1.hap1	long_read_phased	hap1	mPteRuf1	http://genome.senckenberg.de/data/HLpteRufu2A/HLTOGA2integratedv1.bb
+pteVam3	HLpteVam3	Pteropus vampyrus	large flying fox	Pteropodidae	DNA Zoo Consortium	NA	short_read_HiC	primary	pteVam3	http://genome.senckenberg.de/data/HLpteVam3/HLTOGA2integratedv1.bb
+pteAle1	pteAle1	Pteropus alecto	black flying fox	Pteropodidae	GCF_000325575.1	ASM32557v1	short_read	primary	pteAle1	http://genome.senckenberg.de/data/pteAle1/HLTOGA2integratedv1.bb
+rouAeg4	HLrouAeg4	Rousettus aegyptiacus	Egyptian rousette	Pteropodidae	GCA_014176215.1	NA	long_read	primary	rouAeg4	http://genome.senckenberg.de/data/HLrouAeg4/HLTOGA2integratedv1.bb
+rouLes1	HLrouLes1	Rousettus leschenaultii	Leschenaults rousette	Pteropodidae	GCA_015472975.1	rouLes_1.0	unknown	primary	rouLes1	http://genome.senckenberg.de/data/HLrouLes1/HLTOGA2integratedv1.bb
+rouLesc2A	HLrouLesc2A	Rousettus leschenaultii	Leschenaults rousette	Pteropodidae	GCA_053538355.1	ASM5353835v1	unknown	letterA	rouLesc2	http://genome.senckenberg.de/data/HLrouLesc2A/HLTOGA2integratedv1.bb
+rouMad1	HLrouMad1	Rousettus madagascariensis	Madagascan rousette	Pteropodidae	GCA_028533395.1	NA	unknown	primary	rouMad1	http://genome.senckenberg.de/data/HLrouMad1/HLTOGA2integratedv1.bb
+craTho1	HLcraTho1	Craseonycteris thonglongyai	hog-nosed bat	Craseonycteridae	GCA_004027555.1	CraTho_v1_BIUU	short_read	primary	craTho1	http://genome.senckenberg.de/data/HLcraTho1/HLTOGA2integratedv1.bb
+aseSto2	HLaseSto2	Aselliscus stoliczkanus	Stoliczkas trident bat	Hipposideridae	GCA_043727835.1	NA	unknown	primary	aseSto2	http://genome.senckenberg.de/data/HLaseSto2/HLTOGA2integratedv1.bb
+aseSto4	HLaseSto4	Aselliscus stoliczkanus	Stoliczkas trident bat	Hipposideridae	GCA_033961575.1	ASM3396157v1	unknown	primary	aseSto4	http://genome.senckenberg.de/data/HLaseSto4/HLTOGA2integratedv1.bb
+hipCyc2	HLhipCyc2	Doryrhina cyclops	cyclops roundleaf bat	Hipposideridae	GCA_043880285.1	NA	unknown	primary	hipCyc2	http://genome.senckenberg.de/data/HLhipCyc2/HLTOGA2integratedv1.bb
+hipArm1	HLhipArm1	Hipposideros armiger	great roundleaf bat	Hipposideridae	GCA_001890085.1	ASM189008v1	unknown	primary	hipArm1	http://genome.senckenberg.de/data/HLhipArm1/HLTOGA2integratedv1.bb
+hipGal1	HLhipGal1	Hipposideros galeritus	Cantors roundleaf bat	Hipposideridae	GCA_004027415.1	HipGal_v1_BIUU	short_read	primary	hipGal1	http://genome.senckenberg.de/data/HLhipGal1/HLTOGA2integratedv1.bb
+hipPen1	HLhipPen1	Hipposideros pendleburyi	Pendleburys leaf-nosed bat	Hipposideridae	GCA_021464545.1	ASM2146454v1	unknown	primary	hipPen1	http://genome.senckenberg.de/data/HLhipPen1/HLTOGA2integratedv1.bb
+hipLar2	HLhipLar2	Hipposideros larvatus	Intermediate roundleaf bat	Hipposideridae	GCA_043727955.1	NA	unknown	primary	hipLar2	http://genome.senckenberg.de/data/HLhipLar2/HLTOGA2integratedv1.bb
+hipLar3	HLhipLar3	Hipposideros larvatus	Intermediate roundleaf bat	Hipposideridae	Sciencedb https://doi.org/10.57760/sciencedb.11285	NA	unknown	primary	hipLar3	http://genome.senckenberg.de/data/HLhipLar3/HLTOGA2integratedv1.bb
+megLyr2	HLmegLyr2	Lyroderma lyra	Indian false vampire	Megadermatidae	GCA_004026885.1	MegLyr_v1_BIUU	short_read	primary	megLyr2	http://genome.senckenberg.de/data/HLmegLyr2/HLTOGA2integratedv1.bb
+macGiga1	HLmacGiga1	Macroderma gigas	Australian ghost bat	Megadermatidae	GCA_055471755.1	mMacGig1.2_20250303	long_read	primary	mMacGig1	http://genome.senckenberg.de/data/HLmacGiga1/HLTOGA2integratedv1.bb
+megSpa1	HLmegSpa1	Megaderma spasma	lesser false vampire bat	Megadermatidae	GCA_043880595.1	NA	unknown	primary	megSpa1	http://genome.senckenberg.de/data/HLmegSpa1/HLTOGA2integratedv1.bb
+rhiAff2	HLrhiAff2	Rhinolophus affinis	intermediate horseshoe bat	Rhinolophidae	GCA_043728065.1	NA	unknown	primary	rhiAff2	http://genome.senckenberg.de/data/HLrhiAff2/HLTOGA2integratedv1.bb
+rhiAff4	HLrhiAff4	Rhinolophus affinis	Intermediate horseshoe bat	Rhinolophidae	GCA_040057535.1	ASM4005753v1	unknown	primary	rhiAff4	http://genome.senckenberg.de/data/HLrhiAff4/HLTOGA2integratedv1.bb
+rhiCliv1A	HLrhiCliv1A	Rhinolophus clivosus	Geoffroys horseshoe bat	Rhinolophidae	GCA_054645015.1	mRhiCli1.hap1	long_read_phased	hap1	mRhiCli1	http://genome.senckenberg.de/data/HLrhiCliv1A/HLTOGA2integratedv1.bb
+rhiFer5	HLrhiFer5	Rhinolophus ferrumequinum	greater horseshoe bat	Rhinolophidae	GCA_014108255.1	NA	long_read	primary	rhiFer5	http://genome.senckenberg.de/data/HLrhiFer5/HLTOGA2integratedv1.bb
+rhiFer6	HLrhiFer6	Rhinolophus ferrumequinum	greater horseshoe bat	Rhinolophidae	GCF_004115265.1	mRhiFer1_v1.p	long_read	primary	mRhiFer1	http://genome.senckenberg.de/data/HLrhiFer6/HLTOGA2integratedv1.bb
+rhiHip1A	HLrhiHip1A	Rhinolophus hipposideros	Lesser horseshoe bat	Rhinolophidae	GCA_964194185.1	mRhiHip2.hap1.1	long_read_phased	hap1	mRhiHip2	http://genome.senckenberg.de/data/HLrhiHip1A/HLTOGA2integratedv1.bb
+rhiHip1B	HLrhiHip1B	Rhinolophus hipposideros	Lesser horseshoe bat	Rhinolophidae	GCA_964194215.1	mRhiHip2.hap2.1	long_read_phased	hap2	mRhiHip2	http://genome.senckenberg.de/data/HLrhiHip1B/HLTOGA2integratedv1.bb
+rhiHipp2A	HLrhiHipp2A	Rhinolophus hipposideros	Lesser horseshoe bat	Rhinolophidae	GCA_964194215.2	mRhiHip2.hap2.2	long_read_phased	hap2	mRhiHip2	http://genome.senckenberg.de/data/HLrhiHipp2A/HLTOGA2integratedv1.bb
+rhiLuc4	HLrhiLuc4	Rhinolophus perniger lanosus	Northern woolly horseshoe bat	Rhinolophidae	GCA_043748575.1	NA	unknown	primary	rhiLuc4	http://genome.senckenberg.de/data/HLrhiLuc4/HLTOGA2integratedv1.bb
+rhiRex1	HLrhiRex1	Rhinolophus rex	king horseshoe bat	Rhinolophidae	GCA_041825415.1	ASM4182541v1	unknown	primary	rhiRex1	http://genome.senckenberg.de/data/HLrhiRex1/HLTOGA2integratedv1.bb
+rhiSed2	HLrhiSed2	Rhinolophus yonghoiseni	Yong Hoi Sens woolly horseshoe bat	Rhinolophidae	GCA_043880425.1	NA	unknown	primary	rhiSed2	http://genome.senckenberg.de/data/HLrhiSed2/HLTOGA2integratedv1.bb
+rhiSin1	HLrhiSin1	Rhinolophus sinicus	Chinese rufous horseshoe bat	Rhinolophidae	GCA_001888835.1	ASM188883v1	unknown	primary	rhiSin1	http://genome.senckenberg.de/data/HLrhiSin1/HLTOGA2integratedv1.bb
+rhiSin4	HLrhiSin4	Rhinolophus sinicus	Chinese rufous horseshoe bat	Rhinolophidae	GCA_036562045.1	ASM3656204v1	unknown	primary	rhiSin4	http://genome.senckenberg.de/data/HLrhiSin4/HLTOGA2integratedv1.bb
+rhiTri2	HLrhiTri2	Rhinolophus trifoliatus	Trefoil horseshoe bat	Rhinolophidae	GCA_043728145.1	NA	unknown	primary	rhiTri2	http://genome.senckenberg.de/data/HLrhiTri2/HLTOGA2integratedv1.bb
+rhiCyst1A	HLrhiCyst1A	Rhinopoma cystops	Egyptian mouse-tailed bat	Rhinopomatidae	GCA_055761895.1	mRhiCys1.hap1	long_read_phased	hap1	mRhiCys1	http://genome.senckenberg.de/data/HLrhiCyst1A/HLTOGA2integratedv1.bb
+rhiCyst1B	HLrhiCyst1B	Rhinopoma cystops	Egyptian mouse-tailed bat	Rhinopomatidae	GCA_055761905.1	mRhiCys1.hap2	long_read_phased	hap2	mRhiCys1	http://genome.senckenberg.de/data/HLrhiCyst1B/HLTOGA2integratedv1.bb
+rhiMic1	HLrhiMic1	Rhinopoma microphyllum	Greater mouse-tailed bat	Rhinopomatidae	GCA_043880545.1	NA	unknown	primary	rhiMic1	http://genome.senckenberg.de/data/HLrhiMic1/HLTOGA2integratedv1.bb

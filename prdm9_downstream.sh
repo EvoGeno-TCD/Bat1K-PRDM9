@@ -55,7 +55,7 @@ if have mafft; then
     mafft --localpair --maxiterate 1000 --thread "$THREADS" "$W/nonzf.reps.faa" > "$W/nonzf.aln.faa"
     if have pal2nal.pl; then
         pal2nal.pl "$W/nonzf.aln.faa" "$W/nonzf.reps.fna" -output fasta > "$W/nonzf.codon.fa"
-        python3 zf_dnds.py pairs "$W/nonzf.codon.fa" -o "$W/nonzf"
+        python3 zf_dnds.py pairs "$W/nonzf.codon.fa" -o "$W/nonzf" || skip "pairwise dN/dS"
         echo "saturated pairs (dS>1.5): $(grep -c SATURATED "$W/nonzf.pairs.tsv" || true)" >&2
     else skip "pal2nal.pl"; fi
     have iqtree2 && iqtree2 -s "$W/nonzf.aln.faa" -m MFP -B 1000 -T AUTO --prefix "$W/nonzf" -redo
@@ -63,11 +63,12 @@ else skip "mafft"; fi
 
 # 5. ZF repeats: dN/dS contact vs non-contact (pooled within arrays) -----------
 python3 fasta_select.py "$W/prdm9.zf_units.fna" "$W/reps.pass.tsv" --units > "$W/zf_units.reps.fna"
-python3 zf_dnds.py repeats "$W/zf_units.reps.fna" -o "$W/zf" --boot 200
+python3 zf_dnds.py repeats "$W/zf_units.reps.fna" -o "$W/zf" --boot 200 \
+    || skip "repeat dN/dS failed"
 
 # 6. Concerted evolution ----------------------------------------------------------
 python3 concerted_test.py "$W/prdm9.zf_units.faa" --keep "$W/reps.pass.tsv" \
-    --meta "$META" --perm 1000 -o "$W/concerted"
+    --meta "$META" --perm 1000 -o "$W/concerted" || skip "concerted test (needs >=2 arrays)"
 if have mafft && have iqtree2; then
     python3 fasta_select.py "$W/prdm9.zf_units.fna" "$W/reps.pass.tsv" --units --rename \
         > "$W/zf_units.reps.named.fna"
@@ -105,7 +106,8 @@ else skip "species tree (set BIG_TREE)"; fi
 # Predict motifs from $W/prdm9.array.faa with a C2H2 recognition-code predictor,
 # write $MOTIFS, list genomes in $GENOMES, then:
 if [[ -s "$MOTIFS" && -s "$GENOMES" ]]; then
-    python3 motif_erosion.py "$MOTIFS" "$GENOMES" --meta "$META" --same-family -o "$W/erosion"
+    python3 motif_erosion.py "$MOTIFS" "$GENOMES" --meta "$META" --same-family -o "$W/erosion" \
+        || skip "erosion test failed"
 else skip "erosion test (needs $MOTIFS and $GENOMES)"; fi
 
 echo "Done. Start with: $W/qc.status_by_species.tsv  $W/qc.master.tsv  $W/qc.haplotypes.tsv" >&2

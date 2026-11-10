@@ -7,7 +7,7 @@
 set -uo pipefail
 
 URLS="bat_toga_urls.tsv"                 # short<TAB>url
-PARSER="parse_toga_ifne.py"              # your existing parser
+PARSER="parse_toga2.py"              # your existing parser
 GENE_REGEX='prdm9'                       # case-insensitive
 NEIGH_FLANK=1000000                      # 1 Mb either side
 SEQ_FLANK=100000                         # 100 kb either side

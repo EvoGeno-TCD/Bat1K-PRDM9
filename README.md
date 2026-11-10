@@ -251,7 +251,7 @@ that folder.
 
 ---
 
-## 6. Running the pipeline - step by step
+## 6. Running the pipeline
 
 Run each step in order and check its output before moving on. 
 

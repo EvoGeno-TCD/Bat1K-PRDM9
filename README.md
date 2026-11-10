@@ -162,7 +162,7 @@ conda create -n prdm9 -c conda-forge -c bioconda \
     r-base r-ape r-phytools \
     ncbi-datasets-cli
 conda activate prdm9
-conda install bioconda::ucsc-bigbedinfo
+conda install -c bioconda -c conda-forge ucsc-bigbedtobed
 ```
 
 | Tool | Used in | Needed for | Required? |

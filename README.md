@@ -11,21 +11,19 @@ section 7 explains how to read the results.
 ---
 
 ## Contents
-1. [Background: why PRDM9?](#1-background-why-prdm9)
+1. [Background: Why PRDM9?](#1-background-why-prdm9)
 2. [The questions we are asking](#2-the-questions-we-are-asking)
 3. [How the pipeline works (overview)](#3-how-the-pipeline-works-overview)
-4. [Software you need](#4-software-you-need)
-5. [Files you must prepare](#5-files-you-must-prepare)
-6. [Running it, step by step](#6-running-it-step-by-step)
+4. [Software you will need](#4-software-you-will-need)
+5. [Files to prepare](#5-files-to-prepare)
+6. [Running the pipeline - step by step](#6-running-the-pipeline-step-by-step)
 7. [What the outputs mean](#7-what-the-outputs-mean)
-8. [Common problems](#8-common-problems)
-9. [Known limitations](#9-known-limitations)
-10. [Glossary](#10-glossary)
-11. [Key references](#11-key-references)
+8. [Troubleshooting](#8-troubleshooting)
+9. [Limitations](#9-Limitations)
 
 ---
 
-## 1. Background: why PRDM9?
+## 1. Background: Why PRDM9?
 
 During meiosis, chromosomes swap pieces (**recombination**). This doesn't
 happen at random places. In humans, mice and many other mammals, it is
@@ -157,13 +155,13 @@ copied. So we:
 The easiest route is a conda/mamba environment with the bioconda channel:
 
 ```bash
-mamba create -n prdm9 -c conda-forge -c bioconda \
+conda create -n prdm9 -c conda-forge -c bioconda \
     python=3.11 numpy beautifulsoup4 \
     ucsc-bigbedtobed ucsc-bigbedinfo ucsc-twobittofa ucsc-twobitinfo \
     miniprot mafft pal2nal iqtree hyphy \
     r-base r-ape r-phytools \
     ncbi-datasets-cli
-mamba activate prdm9
+conda activate prdm9
 ```
 
 | Tool | Used in | Needed for | Required? |

@@ -16,7 +16,11 @@ mkdir -p "$GFFDIR"
 
 [[ -s "$QUERY" ]] || { echo "Put PRDM9 query proteins in $QUERY" >&2; exit 1; }
 
-for fa in "$SEQDIR"/*.fa; do
+shopt -s nullglob
+fas=("$SEQDIR"/*.fa)
+[[ ${#fas[@]} -gt 0 ]] || { echo "No locus sequences in $SEQDIR - check SEQ_FAILED in prdm9_extract.log" >&2; exit 1; }
+rm -f "$GFFDIR/*.gff"            # leftover from an earlier empty run
+for fa in "${fas[@]}"; do
     base=$(basename "$fa" .fa)
     gff="$GFFDIR/${base}.gff"
     [[ -s "$gff" ]] && continue

@@ -6,6 +6,10 @@ Inputs
   --meta       bat_assemblies.tsv (make_assembly_metadata.py)
   --rawdir     prdm9_toga_raw/ (run_toga_prdm9.sh: *.PRDM9.bed, *.neighbours.bed, *.none)
   --status-col 1-based column of the TOGA status in the bigBed rows (check bigBedInfo -as)
+  --min-chain-score  projections below this chain orthology score (column 16), or with an
+               extra flag in the name (e.g. #retro), are counted separately as
+               'non_orthologous' and never decide a species' status (default 0.5,
+               same as MIN_CHAIN in run_toga_prdm9.sh)
   --zf         <prefix>.per_protein.tsv from prdm9_zf_analysis.py      (optional)
   --domains    prdm9.domains.tsv from prdm9_downstream.sh              (optional)
   --reannot    prdm9_reannot.report.tsv from reannotate_prdm9.py       (optional)
@@ -48,6 +52,8 @@ def read_tsv(path):
 
 def status_rank(s):
     s = s.lower().strip()
+    if s == "non_orthologous":
+        return len(STATUS_RANK) + 2
     return STATUS_RANK.index(s) if s in STATUS_RANK else len(STATUS_RANK)
 
 
@@ -110,6 +116,16 @@ def parse_mutations(field, zf_exon):
                 types_zf=",".join(sorted({m["type"] for m in zf})), evidence=ev)
 
 
+def is_orth(name, chain, min_chain):
+    """orthologous projection: no extra flag after tx#GENE#id, chain score >= min."""
+    if len([p for p in name.split("#")]) > 3:
+        return False
+    try:
+        return float(chain) >= min_chain
+    except ValueError:
+        return True          # no score available: keep
+
+
 def version_of(short):
     m = re.search(r"(\d+)[AB]?$", short)
     return int(m.group(1)) if m else 0
@@ -125,6 +141,7 @@ def main():
     ap.add_argument("--domains")
     ap.add_argument("--reannot")
     ap.add_argument("--cleandir")
+    ap.add_argument("--min-chain-score", type=float, default=0.5)
     ap.add_argument("--zf-exon", default="auto")
     ap.add_argument("--n-flank-genes", type=int, default=5)
     ap.add_argument("-o", "--out", default="prdm9_qc")
@@ -143,6 +160,10 @@ def main():
             c = Counter()
             for line in open(bed):
                 f = line.rstrip("\n").split("\t")
+                if not is_orth(f[3] if len(f) > 3 else "", f[15] if len(f) > 15 else "",
+                               a.min_chain_score):
+                    c["non_orthologous"] += 1
+                    continue
                 st = f[sc].strip() if len(f) > sc else "NA"
                 c[st] += 1
                 if st.lower() == "intact" and len(f) > 9 and f[9].isdigit():
@@ -177,6 +198,9 @@ def main():
                 cands = []
                 with open(path) as fh:
                     for r in csv.DictReader(fh, delimiter="\t"):
+                        if not is_orth(r.get("name", ""), r.get("chain_score", "1"),
+                                       a.min_chain_score):
+                            continue
                         ms = parse_mutations(r.get("inactivating_mutations", ""), zf_exon)
                         st = r.get("status", "NA")
                         cands.append((status_rank(st), EVIDENCE.index(ms["evidence"]) * -1,

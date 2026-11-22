@@ -1,29 +1,31 @@
 # PRDM9 evolution in bats
 
-Pipeline that finds the gene **PRDM9** in 160 bat
-genome assemblies (108 species), determines how reliable each copy is, and then
-tests how PRDM9 has evolved across bats.
+This folder holds a pipeline that finds the gene **PRDM9** in about 160 bat
+genome assemblies (108 species), checks how reliable each copy is, and then
+asks how PRDM9 has evolved across bats.
 
 Read sections 1–3 before running anything. They explain what the pipeline does
-and why. Section 4 sets up the software, sections 5-6 cover running it, and
+and why. Section 4 sets up the software, sections 5–6 cover running it, and
 section 7 explains how to read the results.
 
 ---
 
 ## Contents
-1. [Background: Why PRDM9?](#1-background-why-prdm9)
+1. [Background: why PRDM9?](#1-background-why-prdm9)
 2. [The questions we are asking](#2-the-questions-we-are-asking)
 3. [How the pipeline works (overview)](#3-how-the-pipeline-works-overview)
-4. [Softwares you will need](#4-software-you-will-need)
-5. [Files to prepare](#5-files-to-prepare)
-6. [Running the pipeline](#6-running-the-pipeline)
+4. [Software you need](#4-software-you-need)
+5. [Files you must prepare](#5-files-you-must-prepare)
+6. [Running it, step by step](#6-running-it-step-by-step)
 7. [What the outputs mean](#7-what-the-outputs-mean)
-8. [Troubleshooting](#8-troubleshooting)
-9. [Limitations](#9-Limitations)
+8. [Common problems](#8-common-problems)
+9. [Known limitations](#9-known-limitations)
+10. [Glossary](#10-glossary)
+11. [Key references](#11-key-references)
 
 ---
 
-## 1. Background: Why PRDM9?
+## 1. Background: why PRDM9?
 
 During meiosis, chromosomes swap pieces (**recombination**). This doesn't
 happen at random places. In humans, mice and many other mammals, it is
@@ -106,10 +108,18 @@ PRDM9 is very variable even within species.
 thousands of genes in these genomes by projecting human/mouse genes onto them.
 We pull out:
 - every PRDM9 projection and its TOGA **status** (Intact, Partially intact, Lost …);
-- every gene within 1 Mb either side, so we can check that the copy sits in the
-  expected genomic neighbourhood (**synteny**). This separates the real gene
-  from copies elsewhere in the genome;
-- the DNA sequence of the PRDM9 region ±100 kb.
+- for the **orthologous loci only**: every gene within 1 Mb either side, so we can
+  check that the copy sits in the expected genomic neighbourhood (**synteny**),
+  and the DNA sequence of the region ±100 kb (taken from the Hiller lab's genome
+  2bit files; NCBI is only a fallback).
+
+**Why "orthologous loci only".** PRDM9's zinc-finger array looks like the arrays of
+hundreds of other zinc-finger genes, so TOGA reports dozens of weak PRDM9
+projections across each genome. A locus is only followed up if its projection
+has a chain orthology score (column 16 of the TOGA2 file) of at least
+`MIN_CHAIN` (default 0.5) and carries no extra flag such as `#retro`; at most
+`MAX_LOCI` (default 5) loci per assembly are kept. All projections are still
+saved, and counted as `non_orthologous` in the QC tables.
 
 Each annotation file is downloaded into a temporary cache, which is
 **deleted after every assembly** to save disk space.
@@ -150,19 +160,18 @@ copied. So we:
 
 ---
 
-## 4. Softwares you will need
+## 4. Software you need
 
-The easiest route is a conda/mamba environment with the bioconda channel:
+The easiest route is a conda environment with the bioconda channel:
 
 ```bash
 conda create -n prdm9 -c conda-forge -c bioconda \
-    python=3.11 numpy beautifulsoup4 \
+    python=3.11 numpy curl \
     ucsc-bigbedtobed ucsc-bigbedinfo ucsc-twobittofa ucsc-twobitinfo \
     miniprot mafft pal2nal iqtree hyphy \
     r-base r-ape r-phytools \
     ncbi-datasets-cli
 conda activate prdm9
-conda install -c bioconda -c conda-forge ucsc-bigbedtobed
 ```
 
 | Tool | Used in | Needed for | Required? |
@@ -170,10 +179,10 @@ conda install -c bioconda -c conda-forge ucsc-bigbedtobed
 | bash, awk, coreutils | all `.sh` scripts | glue | **yes** |
 | Python ≥ 3.8 | all `.py` scripts | everything | **yes** |
 | numpy | `concerted_test.py`, `motif_erosion.py` | statistics | **yes** |
-| beautifulsoup4 | `parse_toga_ifne.py` (lab parser) | parsing TOGA rows | **yes** |
 | `bigBedToBed` (UCSC) | step 1 | reading TOGA annotation files over the web | **yes** |
-| `twoBitToFa` (UCSC) | step 1 | downloading the PRDM9 region | **yes** |
-| `bigBedInfo`, `twoBitInfo` (UCSC) | checks only | checking settings before the first run | recommended |
+| `bigBedInfo` (UCSC) | step 1 | scaffold lengths; checking files | **yes** |
+| `curl` | step 1 | fetching locus sequences from NCBI | **yes** (usually already installed) |
+| `twoBitToFa`, `twoBitInfo` (UCSC) | step 1 | fetching the DNA of each PRDM9 locus from the Hiller lab's genome files | **yes** |
 | miniprot ≥ 0.12 | step 2 | protein-to-genome alignment | **yes** |
 | InterProScan 5 | step 3.1 | finding domains | strongly recommended* |
 | MAFFT | step 3.4, 3.6 | alignments | recommended |
@@ -195,14 +204,14 @@ check can't look at domains.
 **Steps that skip themselves:** if a recommended tool is missing, step 3 prints
 `SKIP: <reason>` and carries on. Read the end of the log to see what didn't run.
 
-**Disk and network:** Step 1 downloads one large annotation file per assembly,
+**Disk and network:** step 1 downloads one large annotation file per assembly,
 which can be several GB. It needs internet access to `genome.senckenberg.de`.
 The cache is deleted after each assembly, so you only need room for one at a
-time. The erosion test will need whole genomes (~2 GB each).
+time. The erosion test needs whole genomes (~2 GB each).
 
 ---
 
-## 5. Files to prepare
+## 5. Files you must prepare
 
 Put **all scripts and these files in one folder**, and run everything from
 that folder.
@@ -218,7 +227,8 @@ that folder.
 
 | File | Format | Used by | How to get it |
 |---|---|---|---|
-| Published dated bat/mammal **species** tree | Newick or NEXUS | step 3.7 (`BIG_TREE=` in `prdm9_downstream.sh`) | One summary tree (e.g. the MCC tree) is enough. Tip labels must start with `Genus_species`. This is a tree of the **species**, not of the gene; the pipeline builds the gene trees itself. |
+| `query_prdm9.faa` | Protein FASTA | step 2 (`QUERY=` in `reannotate_prdm9.sh`) | Start with human PRDM9 (UniProt **Q9NQV7**). After a first run, add 1–3 good bat PRDM9 proteins from `prdm9_reannot.faa` (choose long-read assemblies with flag `OK`), then re-run step 2. Bat queries align better than human. |
+| Published dated bat/mammal **species** tree | Newick or NEXUS | step 3.7 (`BIG_TREE=` in `prdm9_downstream.sh`) | E.g. the Upham et al. (2019) mammal trees from VertLife; one summary tree (e.g. the MCC tree) is enough. Tip labels must start with `Genus_species`. This is a tree of the **species**, not of the gene; the pipeline builds the gene trees itself. |
 | `name_map.tsv` (optional) | `Genus species<TAB>exact tree tip label` | step 3.7 (`NAME_MAP=`) | Only for species whose names changed (e.g. *Neoeptesicus*, *Cnephaeus*, *Dermanura*). After the first run, look at `prdm9_analysis/bats.missing.txt` to see which ones need it. |
 | `motifs.tsv` | `short_name<TAB>IUPAC motif` | step 3.8 (`MOTIFS=`) | Run a C2H2 zinc-finger binding predictor (e.g. the Persikov & Singh predictor) on `prdm9_analysis/prdm9.array.faa` and write one motif per species. Use the **short** assembly names (e.g. `myoNatt2A`). |
 | `genomes.tsv` | `short_name<TAB>/path/to/genome.fa(.gz)` | step 3.8 (`GENOMES=`) | See below. |
@@ -230,9 +240,9 @@ that folder.
   only compared within a family.
 - **Downloading:** for assemblies with an accession, use
   `datasets download genome accession GCA_xxxxxxx.x --include genome`.
-  For assemblies without an accession, convert the TOGA2 hub's genome file:
-  `twoBitToFa http://genome.senckenberg.de/data/HLxxx/HLxxx.2bit xxx.fa`.
-  Then delete `/tmp/udcCache/...` afterwards.
+  DNA Zoo assemblies are provided by the Hiller lab as 2bit files under
+  `https://genome.senckenberg.de/download/TOGA/MammalianDNAZooAssemblies/`;
+  convert with `twoBitToFa <file>.2bit out.fa`.
 - **Starting the file from the representatives:**
   ```bash
   awk -F'\t' 'NR==FNR{acc[$1]=$6; next} FNR>1{print $4"\t/data/genomes/"acc[$4]".fna.gz"}' \
@@ -243,18 +253,21 @@ that folder.
 
 | Setting | In file | What it is | How to check |
 |---|---|---|---|
-| `STATUS_COL=23` | `prdm9_downstream.sh` | Which column of the TOGA rows holds the status | `bigBedInfo -as <any URL from bat_toga_urls.tsv>`. The lab parser also reads status from this column. |
-| `TWOBIT_PATTERN` | `run_toga_prdm9.sh` | Web address of each genome's sequence file | `twoBitInfo http://genome.senckenberg.de/data/HLmyoMyo6/HLmyoMyo6.2bit stdout \| head` should list scaffolds |
+| `STATUS_COL=23` | `prdm9_downstream.sh` | Which column of the TOGA rows holds the status | Confirmed with `bigBedInfo -as`: column 23 (`status`) |
+| `MIN_CHAIN=0.5`, `MAX_LOCI=5` | `run_toga_prdm9.sh` (and `MIN_CHAIN` in `prdm9_downstream.sh`, keep equal) | Which PRDM9 projections count as orthologous loci | After step 1, look at `prdm9_toga_raw/<name>.PRDM9.loci.tsv` (last column = chain score). The real PRDM9 should be there, usually with a score near 1 |
+| `genome_2bit_urls.tsv` | built by `make_genome_urls.py` (step 0b) | Where each assembly's DNA lives | `bash check_setup.sh` reports whether it exists and whether the server is reachable |
+| `NCBI_API_KEY` (optional) | environment variable | Only used for the NCBI fallback | `export NCBI_API_KEY=...` (free key from an NCBI account) |
 | `ZF_EXON="auto"` | `prdm9_downstream.sh` | Which reference exon holds the ZF array | Step 3 prints the auto-detected number; check it against the human PRDM9 transcript |
-| `STATUS_RANK` list | top of `prdm9_qc.py` | Expected TOGA status words | After step 1: `cut -f15 prdm9_toga_clean/*.tsv \| sort \| uniq -c` |
+| `STATUS_RANK` list | top of `prdm9_qc.py` | Expected TOGA status words | After step 1: `cut -f20 prdm9_toga_clean/*.tsv \| sort \| uniq -c` |
 | `tech` column | `bat_assemblies.tsv` | Sequencing technology | 57 assemblies are `unknown`. Where you can find out (NCBI assembly page), set one of `long_read_phased`, `long_read`, `short_read_HiC`, `short_read` (exact spelling). |
 | `THREADS` | `reannotate_prdm9.sh`, `prdm9_downstream.sh` | CPUs to use | Match your machine |
 
 ---
 
-## 6. Running the pipeline
+## 6. Running it, step by step
 
-Run each step in order and check its output before moving on. 
+Run each step in order and check its output before moving on. On a shared
+server, run long steps inside `screen` or `tmux`, or as a cluster job.
 
 ### Step 0: assembly metadata (seconds)
 ```bash
@@ -262,7 +275,30 @@ python3 make_assembly_metadata.py toga_species_table.txt bat_assemblies.tsv
 ```
 `toga_species_table.txt` is the TOGA2 species list (the tab-separated table of
 species, assembly, taxonomy ID and lineage). `bat_assemblies.tsv` is already
-provided, **so you only need to re-run this if that table changes.**
+provided, so you only need to re-run this if that table changes.
+
+### Step 0b: find the genome sequences (a minute)
+```bash
+bash check_setup.sh                 # are the tools installed and the server reachable?
+python3 make_genome_urls.py         # writes genome_2bit_urls.tsv
+```
+The TOGA2 **annotations** and the **genome sequences** live in different places on
+the Senckenberg server, and the sequence folders are named after the species, not
+just the assembly, e.g.
+
+```
+https://genome.senckenberg.de/download/TOGA2/Genomes/Mammalia/\
+Rhinolophus_ferrumequinum__greater_horseshoe_bat__HLrhiFer5__GCA_014108255.1/HLrhiFer5.2bit
+```
+
+`make_genome_urls.py` downloads the directory index once and works out the right
+folder for each of your assemblies. Add `--verify` to check every file exists
+(one quick request each). If your server blocks the download, fetch the index by
+hand and point the script at it:
+```bash
+curl -sSf 'https://genome.senckenberg.de/download/TOGA2/Genomes/Mammalia/' -o idx.html
+python3 make_genome_urls.py --index-file idx.html
+```
 
 ### Step 1: extract from TOGA2 (hours; network-bound)
 ```bash
@@ -273,16 +309,26 @@ Codes in `prdm9_extract.log`:
 
 | Code | Meaning | What to do |
 |---|---|---|
-| `OK` | PRDM9 found and parsed | nothing |
+| `OK projections=N loci=M` | PRDM9 found; N projections in total, M orthologous loci followed up | nothing |
+| `FILTER_FALLBACK` | No projection passed `MIN_CHAIN`; the single best one was used | look at that assembly by hand: possible loss, or poor assembly |
 | `NO_PRDM9` | TOGA has no PRDM9 for this assembly | a possible loss; noted in QC |
 | `DOWNLOAD_FAILED` | URL didn't work | check the URL (likely for myoBra1, myoDav1, pteAle1) |
-| `SEQ_FAILED` | region sequence not downloaded | check `TWOBIT_PATTERN` |
+| `SEQ_FAILED` | locus DNA not downloaded | column 4 of the log line gives the reason. `no entry in genome_2bit_urls.tsv` → run step 0b. `2bit: ... not found` → that scaffold name is missing from the genome file, so check the assembly by hand. Without step 0b every locus fails here |
 | `NEIGHBOURS_FAILED` | nearby genes not fetched | synteny check missing for that copy |
-| `PARSER_FAILED` | lab parser crashed | usually beautifulsoup4 missing |
+| `PARSER_FAILED` | parser crashed | check the file is complete (38 columns per row) |
+
+**The log is appended, not replaced.** `prdm9_extract.log` keeps the lines from
+every run, so a failed first attempt (e.g. the wifi dropping) stays in the counts.
+Delete it before a clean run, or look at the tail only.
 
 The script **resumes**: it skips any assembly that already has
 `prdm9_toga_clean/<name>.PRDM9.clean.tsv` or `prdm9_toga_raw/<name>.none`. To
 redo one, delete those files first.
+
+**Stopping a run.** Use **Ctrl-C**, which stops the script and cleans up its
+temporary folder. **Ctrl-Z does not stop it**: it only pauses it in the
+background, still holding its files. If you pressed Ctrl-Z, run `jobs` to see it
+and `kill %1` to stop it (or `fg` then Ctrl-C), then `rm -rf prdm9_tmp`.
 
 ### Step 2: re-annotate from DNA (minutes)
 ```bash
@@ -451,9 +497,13 @@ KRAB / SSXRD / SET present (1/0), number of C2H2 hits, `domain_order`, and
 
 | Symptom | Likely cause / fix |
 |---|---|
-| `command not found: bigBedToBed` | Environment not activated (`mamba activate prdm9`) |
+| `command not found: bigBedToBed` | Environment not activated (`conda activate prdm9`) |
 | Many `DOWNLOAD_FAILED` | No internet on compute nodes; run step 1 on a login/data node |
-| Many `SEQ_FAILED` | `TWOBIT_PATTERN` is wrong; test with `twoBitInfo` (section 5). After fixing, delete `prdm9_toga_clean/<name>.PRDM9.clean.tsv` for those assemblies and re-run |
+| Many `SEQ_FAILED` | Usually step 0b was not run, so there was no `genome_2bit_urls.tsv`. Run it, then re-run step 1: existing `.fa` files are kept, so only the missing ones are fetched. Note the sequence step is skipped for assemblies already marked done, so also delete `prdm9_toga_clean/<name>.PRDM9.clean.tsv` for the affected ones |
+| `twoBitInfo ... can't open` for a URL like `/data/<assembly>/<assembly>.2bit` | That path does not exist. Genome sequences are under `/download/TOGA2/Genomes/Mammalia/<long folder name>/`; `make_genome_urls.py` finds the right one |
+| `invalid end > chromSize` messages | From an older version of `run_toga_prdm9.sh`; windows are now clipped to scaffold ends. Update the script |
+| `can't open file ... parse_toga_ifne.py` | Older version of the script; the parser is now `parse_toga_prdm9.py` and is included |
+| A file literally named `*.gff` in `prdm9_miniprot_gff/` | Step 2 ran with no sequences (older version). Delete it; step 2 now stops with a message instead |
 | Disk fills up during step 1 | The cache should be deleted per assembly; check `/tmp/udcCache` and `prdm9_tmp/` |
 | All statuses look "worst" in QC | TOGA uses different status words; edit `STATUS_RANK` in `prdm9_qc.py` |
 | `WARNING: ZF exon unknown` | Set `ZF_EXON` to the number of the ZF exon in the reference transcript |
@@ -464,10 +514,10 @@ KRAB / SSXRD / SET present (1/0), number of C2H2 hits, `domain_order`, and
 
 ---
 
-## 9. Limitations
+## 9. Known limitations
 
 - **Technology labels are guessed.** They come from assembly names; 57 are
-  `unknown` until you check them.
+  `unknown` until someone checks them.
 - **Finger detection** uses the classic C2H2 pattern (C-x2-C-x12-H-x3-H, allowing
   slightly different spacing). Degenerate fingers (e.g. a missing histidine) are
   not counted. Only canonical fingers enter the dN/dS and concerted-evolution tests.
@@ -484,13 +534,54 @@ KRAB / SSXRD / SET present (1/0), number of C2H2 hits, `domain_order`, and
 
 ---
 
+## 10. Glossary
+
+| Term | Meaning |
+|---|---|
+| **Allele** | One version of a gene; diploid animals carry two |
+| **Assembly** | A reconstructed genome sequence; several may exist per species |
+| **C2H2 zinc finger** | ~28-amino-acid unit held together by 2 cysteines + 2 histidines binding zinc; binds ~3 DNA bases |
+| **Codon alignment** | DNA alignment that keeps codons intact, needed for dN/dS |
+| **Concerted evolution** | Repeats within one genome becoming similar to each other through copying (gene conversion / unequal crossing-over) |
+| **Contact residues** | Positions −1, +2, +3, +6 of each finger's helix that touch DNA |
+| **dN/dS (ω)** | Rate of protein-changing vs silent changes. >1 positive selection, ≈1 neutral, <1 constraint |
+| **Haplotype (hap1/hap2)** | Separate assemblies of the two chromosome copies of one animal |
+| **Hotspot** | Short region where recombination is concentrated |
+| **IUPAC code** | Letters for ambiguous bases (N = any, R = A/G, …) |
+| **Long-read / short-read** | Sequencing technologies; long reads resolve repeats much better |
+| **Projection (TOGA)** | A gene's position and structure transferred from a reference genome |
+| **Saturation** | So many changes that more can't be detected; dS > ~1.5 is unreliable |
+| **Synteny** | Conserved order of neighbouring genes |
+| **ZF0** | The lone zinc finger upstream of PRDM9's main array |
+
+---
+
+## 11. Key references
+
+- Baker Z. et al. (2017) Repeated losses of PRDM9 directed recombination despite
+  the conservation of PRDM9 across vertebrates. *eLife*.
+- Oliver P.L. et al. (2009) Accelerated evolution of the Prdm9 speciation gene
+  across diverse metazoan taxa. *PLoS Genetics*.
+- Upham N.S., Esselstyn J.A., Jetz W. (2019) Inferring the mammal tree:
+  species-level sets of phylogenies for questions in ecology, evolution, and
+  conservation. *PLoS Biology*.
+- Persikov A.V., Singh M. (2014) De novo prediction of DNA-binding specificities
+  for Cys2His2 zinc finger proteins. *Nucleic Acids Research*.
+- Li H. (2023) Protein-to-genome alignment with miniprot. *Bioinformatics*.
+- Kirilenko B.M. et al. (2023) Integrating gene annotation with orthology
+  inference at scale (TOGA). *Science*. TOGA2: Malovichko et al., in preparation.
+
+---
+
 ## Script index
 
 | Script | Step | One-line purpose |
 |---|---|---|
 | `make_assembly_metadata.py` | 0 | Technology, haplotype and individual for each assembly |
+| `check_setup.sh` | 0 | Check tools, network and input files before a long run |
+| `make_genome_urls.py` | 0b | Find each assembly's genome 2bit file on the server |
 | `run_toga_prdm9.sh` | 1 | Extract PRDM9, neighbours and region DNA; delete the cache |
-| `parse_toga_ifne.py` (lab) | 1 | Turn TOGA rows into a readable table |
+| `parse_toga_prdm9.py` | 1 | Turn TOGA rows into a readable table (standard library only) |
 | `reannotate_prdm9.sh` / `.py` | 2 | Rebuild the protein from DNA with miniprot + read-through ZF exon |
 | `prdm9_downstream.sh` | 3 | Runs everything below in order |
 | `domain_table.py` | 3.1 | Domain presence and order |

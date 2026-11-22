@@ -2,9 +2,8 @@
 """
 Build genome_2bit_urls.tsv: <short assembly name> <TAB> <URL of its .2bit>
 
-The TOGA2 annotation files live under  /data/<assembly>/HLTOGA2integratedv1.bb
-but the genome SEQUENCES live somewhere else, in folders whose names also
-contain the species and (usually) the accession, e.g.
+The TOGA2 annotation files can be found under  /data/<assembly>/HLTOGA2integratedv1.bb
+but the genome SEQUENCES are somewhere else, e.g.
 
   https://genome.senckenberg.de/download/TOGA2/Genomes/Mammalia/
       Rhinolophus_ferrumequinum__greater_horseshoe_bat__HLrhiFer5__GCA_014108255.1/HLrhiFer5.2bit
@@ -16,7 +15,6 @@ So we download the directory index once and match each assembly ID to its folder
   python3 make_genome_urls.py --verify               # also HEAD each .2bit URL
 
 Reads assembly IDs from bat_toga_urls.tsv (the HL name in each URL).
-Honours the http_proxy / https_proxy environment variables.
 """
 import argparse, os, re, sys, urllib.request
 

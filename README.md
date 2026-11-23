@@ -279,8 +279,8 @@ provided, so you only need to re-run this if that table changes.
 
 ### Step 0b: find the genome sequences (a minute)
 ```bash
-bash check_setup.sh                 # are the tools installed and the server reachable?
-python3 make_genome_urls.py         # writes genome_2bit_urls.tsv
+bash code/heck_setup.sh                 # are the tools installed and the server reachable?
+python3 code/make_genome_urls.py         # writes genome_2bit_urls.tsv
 ```
 The TOGA2 **annotations** and the **genome sequences** live in different places on
 the Senckenberg server, and the sequence folders are named after the species, not
@@ -302,8 +302,8 @@ python3 make_genome_urls.py --index-file idx.html
 
 ### Step 1: extract from TOGA2 (hours; network-bound)
 ```bash
-bash run_toga_prdm9.sh
-cut -f2 prdm9_extract.log | sort | uniq -c       # summary
+bash code/run_toga_prdm9.sh
+cut -f2 logs/prdm9_extract.log | sort | uniq -c       # summary
 ```
 Codes in `prdm9_extract.log`:
 
@@ -332,7 +332,7 @@ and `kill %1` to stop it (or `fg` then Ctrl-C), then `rm -rf prdm9_tmp`.
 
 ### Step 2: re-annotate from DNA (minutes)
 ```bash
-bash reannotate_prdm9.sh
+bash code/reannotate_prdm9.sh
 ```
 At the end it prints a count of flags (see section 7, `prdm9_reannot.report.tsv`).
 When you add bat proteins to `query_prdm9.faa`, delete `prdm9_miniprot_gff/`
@@ -342,7 +342,7 @@ before re-running, or old alignments are reused.
 First set `BIG_TREE` (and `NAME_MAP`, if needed) at the top of
 `prdm9_downstream.sh`, then:
 ```bash
-bash prdm9_downstream.sh 2>&1 | tee downstream.log
+bash code/prdm9_downstream.sh 2>&1 | tee downstream.log
 grep SKIP downstream.log           # which parts did not run, and why
 ```
 Everything is written to `prdm9_analysis/`.
@@ -353,7 +353,7 @@ changing step 2.
 Every script can be run on its own; `python3 <script>.py -h` explains its
 options. For example:
 ```bash
-python3 concerted_test.py prdm9_analysis/prdm9.zf_units.faa \
+python3 code/concerted_test.py prdm9_analysis/prdm9.zf_units.faa \
     --keep prdm9_analysis/reps.pass.tsv --meta bat_assemblies.tsv -o test_run
 ```
 

@@ -184,7 +184,9 @@ def main():
             flags.append("INTERNAL_STOP")
         if not r["aa"].startswith("M"):
             flags.append("NO_START_M")
-        faa.write(f">{pid}\n{r['aa']}\n")
+        # '*' marks an internal stop (flagged above as INTERNAL_STOP). Write it as
+        # 'X' so the file is valid input for InterProScan/HMMER; positions are kept.
+        faa.write(f">{pid}\n{r['aa'].replace('*', 'X')}\n")
         fna.write(f">{pid}\n{r['nt']}\n")
         rep.write("\t".join(map(str, [
             pid, sp, base, m["target"], m["identity"], m["strand"], len(m["cds"]),

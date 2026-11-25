@@ -279,8 +279,8 @@ provided, so you only need to re-run this if that table changes.
 
 ### Step 0b: find the genome sequences (a minute)
 ```bash
-bash code/heck_setup.sh                 # are the tools installed and the server reachable?
-python3 code/make_genome_urls.py         # writes genome_2bit_urls.tsv
+bash check_setup.sh                 # are the tools installed and the server reachable?
+python3 make_genome_urls.py         # writes genome_2bit_urls.tsv
 ```
 The TOGA2 **annotations** and the **genome sequences** live in different places on
 the Senckenberg server, and the sequence folders are named after the species, not
@@ -302,8 +302,8 @@ python3 make_genome_urls.py --index-file idx.html
 
 ### Step 1: extract from TOGA2 (hours; network-bound)
 ```bash
-bash code/run_toga_prdm9.sh
-cut -f2 logs/prdm9_extract.log | sort | uniq -c       # summary
+bash run_toga_prdm9.sh
+cut -f2 prdm9_extract.log | sort | uniq -c       # summary
 ```
 Codes in `prdm9_extract.log`:
 
@@ -330,9 +330,19 @@ temporary folder. **Ctrl-Z does not stop it**: it only pauses it in the
 background, still holding its files. If you pressed Ctrl-Z, run `jobs` to see it
 and `kill %1` to stop it (or `fg` then Ctrl-C), then `rm -rf prdm9_tmp`.
 
+### Step 1b: locus DNA only (if step 1 already ran)
+If step 1 finished but the `.fa` files are missing (`SEQ_FAILED`), you do **not**
+need to repeat the big annotation downloads:
+```bash
+python3 make_genome_urls.py        # if not done yet
+bash fetch_locus_seq.sh            # or: bash fetch_locus_seq.sh myoMyo6 rhiFer5
+```
+It reads `prdm9_toga_raw/*.PRDM9.loci.tsv` from the previous run and fetches just
+the DNA. Reasons for any remaining failures go to `prdm9_seq.log`.
+
 ### Step 2: re-annotate from DNA (minutes)
 ```bash
-bash code/reannotate_prdm9.sh
+bash reannotate_prdm9.sh
 ```
 At the end it prints a count of flags (see section 7, `prdm9_reannot.report.tsv`).
 When you add bat proteins to `query_prdm9.faa`, delete `prdm9_miniprot_gff/`
@@ -342,7 +352,7 @@ before re-running, or old alignments are reused.
 First set `BIG_TREE` (and `NAME_MAP`, if needed) at the top of
 `prdm9_downstream.sh`, then:
 ```bash
-bash code/prdm9_downstream.sh 2>&1 | tee downstream.log
+bash prdm9_downstream.sh 2>&1 | tee downstream.log
 grep SKIP downstream.log           # which parts did not run, and why
 ```
 Everything is written to `prdm9_analysis/`.
@@ -353,7 +363,7 @@ changing step 2.
 Every script can be run on its own; `python3 <script>.py -h` explains its
 options. For example:
 ```bash
-python3 code/concerted_test.py prdm9_analysis/prdm9.zf_units.faa \
+python3 concerted_test.py prdm9_analysis/prdm9.zf_units.faa \
     --keep prdm9_analysis/reps.pass.tsv --meta bat_assemblies.tsv -o test_run
 ```
 
@@ -499,7 +509,7 @@ KRAB / SSXRD / SET present (1/0), number of C2H2 hits, `domain_order`, and
 |---|---|
 | `command not found: bigBedToBed` | Environment not activated (`conda activate prdm9`) |
 | Many `DOWNLOAD_FAILED` | No internet on compute nodes; run step 1 on a login/data node |
-| Many `SEQ_FAILED` | Usually step 0b was not run, so there was no `genome_2bit_urls.tsv`. Run it, then re-run step 1: existing `.fa` files are kept, so only the missing ones are fetched. Note the sequence step is skipped for assemblies already marked done, so also delete `prdm9_toga_clean/<name>.PRDM9.clean.tsv` for the affected ones |
+| Many `SEQ_FAILED` | Usually step 0b was not run, so there was no `genome_2bit_urls.tsv`. Run step 0b, then `bash fetch_locus_seq.sh` - that fetches only the missing DNA from the loci files already on disk, so the annotations are **not** downloaded again |
 | `twoBitInfo ... can't open` for a URL like `/data/<assembly>/<assembly>.2bit` | That path does not exist. Genome sequences are under `/download/TOGA2/Genomes/Mammalia/<long folder name>/`; `make_genome_urls.py` finds the right one |
 | `invalid end > chromSize` messages | From an older version of `run_toga_prdm9.sh`; windows are now clipped to scaffold ends. Update the script |
 | `can't open file ... parse_toga_ifne.py` | Older version of the script; the parser is now `parse_toga_prdm9.py` and is included |
@@ -509,6 +519,8 @@ KRAB / SSXRD / SET present (1/0), number of C2H2 hits, `domain_order`, and
 | `WARNING: ZF exon unknown` | Set `ZF_EXON` to the number of the ZF exon in the reference transcript |
 | `need at least two arrays` | Fewer than two species passed the PRDM9 check; look at `gate_reasons` in `qc.master.tsv` |
 | Species missing from the tree | Name differs in the published tree; add to `name_map.tsv` |
+| InterProScan: `You have submitted a protein sequence which contains an asterix (*)` | Fixed: step 3 now writes `prdm9_analysis/prdm9_for_interpro.faa` with `*` (internal stop codons) replaced by `X` before calling InterProScan. Update `prdm9_downstream.sh`, no need to re-run step 2 |
+| Lots of `INTERNAL_STOP` in `prdm9_reannot.report.tsv` | Expected for pseudogenised copies, but if most copies have it, the query proteins in `query_prdm9.faa` may be too distant - add a bat PRDM9 and re-run step 2 |
 | R step fails | Install `ape` and `phytools`; this script has not yet been run on real data |
 | `iqtree2: command not found` | See the IQ-TREE note in section 4 |
 
@@ -580,6 +592,7 @@ KRAB / SSXRD / SET present (1/0), number of C2H2 hits, `domain_order`, and
 | `make_assembly_metadata.py` | 0 | Technology, haplotype and individual for each assembly |
 | `check_setup.sh` | 0 | Check tools, network and input files before a long run |
 | `make_genome_urls.py` | 0b | Find each assembly's genome 2bit file on the server |
+| `fetch_locus_seq.sh` | 1b | Fetch only the locus DNA, reusing a previous run's loci files |
 | `run_toga_prdm9.sh` | 1 | Extract PRDM9, neighbours and region DNA; delete the cache |
 | `parse_toga_prdm9.py` | 1 | Turn TOGA rows into a readable table (standard library only) |
 | `reannotate_prdm9.sh` / `.py` | 2 | Rebuild the protein from DNA with miniprot + read-through ZF exon |
